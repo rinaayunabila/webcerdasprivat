@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Pendaftaran Akun</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    main {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 100px auto;
+}
+
+.form-container {
+  position: relative;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.9);
+  border-radius: 8px;
+  text-align: center;
+  max-width: 500px; /* Atur ukuran maksimum card */
+  width: 100%; /* Atur agar card mengisi lebar sesuai container */
+  margin: 0 auto; /* Agar card berada di tengah secara horizontal */
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+p {
+  margin-bottom: 30px;
+  font-size: 14px;
+  color: #666;
+}
+
+.options-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.option {
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.option:hover {
+  transform: scale(1.05);
+}
+
+.option img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+}
+
+.option h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.option p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Tombol Kembali (X) di Sudut */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+.close-button:hover {
+  color: #000;
+}
+
+  </style>
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header fixed-top">
+    <div class="branding d-flex align-items-center">
+      <div class="container position-relative d-flex align-items-center justify-content-between">
+        <a href="index.html" class="logo d-flex align-items-center">
+          <img src="assets/img/logoCP2.png" alt="" style="width: 40px; height: auto;">
+          <h1 class="sitename">Cerdas Privat</h1>
+        </a>
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="berandasis.html" class="active">Beranda</a></li>
+            <li><a href="#about">Tentang</a></li>
+            <li><a href="gurusis.html">Guru</a></li>
+            <li><a href="#about">Testimoni</a></li>
+            <li><a href="#about">Kontak</a></li>
+            <li><button type="submit" class="btn btn-primary"><a href="login siswa.html">Masuk</a></button></li>
+            <li><button type="submit" class="btn btn-primary"><a href="pendaftaransis.html">Daftar</a></button></li>
+            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section id="registration" class="registration py-5">
+      <div class="container" data-aos="fade-up">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="form-container">
+              <!-- Tombol Kembali (X) -->
+              <div class="close-button" onclick="window.location.href='beranda.html'">&times;</div>
+  
+              <!-- Judul dan Deskripsi -->
+              <h2>Pilih Tipe Akun</h2>
+              <p>Pilih tipe akun yang ingin Anda daftarkan</p>
+  
+              <!-- Opsi Pendaftaran Akun -->
+              <div class="options-container">
+                <!-- Opsi Mengajar -->
+                <div class="option" onclick="window.location.href='daftarakunguru.html'">
+                  <img src="assets/img/services.jpg" alt="Icon Mengajar">
+                  <div class="text">
+                    <h3>Mengajar</h3>
+                    <p>Buat kelas dan kelola siswa</p>
+                  </div>
+                </div>
+  
+                <!-- Opsi Pengajar -->
+                <div class="option" onclick="window.location.href='pendaftaransis.html'">
+                  <img src="assets/img/services.jpg" alt="Icon Pengajar">
+                  <div class="text">
+                    <h3>Pelajar</h3>
+                    <p></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+</html>
