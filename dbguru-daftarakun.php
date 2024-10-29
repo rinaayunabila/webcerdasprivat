@@ -11,37 +11,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $deskripsi = $_POST['qualification'];
     $pendidikan = $_POST['experience'];
     $mataPelajaran = $_POST['subject'];
-    $pengalamanMengajar = $_POST['teaching_experience']; // Corrected key here
+    $pengalamanMengajar = $_POST['teaching_experience'];
     $tarif = $_POST['tarif'];
     $noHp = $_POST['phone'];
     $alamat = $_POST['address'];
     $levelMengajar = $_POST['teaching_level'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Meng-hash password
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hash password
+    $role = 'Guru'; // Role tetap sebagai 'Guru'
 
     // Mengupload file foto profil
-    $targetDir = "uploads/"; // Folder untuk menyimpan foto profil
+    $targetDir = "uploads/";
     $targetFile = $targetDir . basename($fotoProfil);
-    move_uploaded_file($_FILES['profile-pic']['tmp_name'], $targetFile);
+    if (move_uploaded_file($_FILES['profile-pic']['tmp_name'], $targetFile)) {
 
-    // Menyiapkan pernyataan SQL dengan jumlah kolom yang sesuai
-    $stmt = $conn->prepare("INSERT INTO Guru (foto_profil, nama, deskripsi, pendidikan, mata_pelajaran, no_hp, alamat, tarif, pengalaman_mengajar, level, password, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    
-    // Mengikat parameter yang sesuai
-    $stmt->bind_param("ssssssssssss", $targetFile, $nama, $deskripsi, $pendidikan, $mataPelajaran, $noHp, $alamat, $tarif, $pengalamanMengajar, $levelMengajar, $password, $email);
+        // Memasukkan data autentikasi ke tabel Users
+        $userStmt = $conn->prepare("INSERT INTO Users (email, password, role) VALUES (?, ?, ?)");
+        $userStmt->bind_param("sss", $email, $password, $role);
 
-    // Menjalankan pernyataan dan memeriksa keberhasilan
-    if ($stmt->execute()) {
-        // Pendaftaran berhasil, alihkan ke halaman login
-        header("Location: login.html"); // Ganti dengan nama file halaman login Anda
-        exit();
+        if ($userStmt->execute()) {
+            // Memasukkan data profil ke tabel Guru
+            $stmt = $conn->prepare("INSERT INTO Guru (foto_profil, nama, deskripsi, pendidikan, mata_pelajaran, no_hp, alamat, tarif, pengalaman_mengajar, level, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssssssssss", $targetFile, $nama, $deskripsi, $pendidikan, $mataPelajaran, $noHp, $alamat, $tarif, $pengalamanMengajar, $levelMengajar, $email);
+
+            if ($stmt->execute()) {
+                // Pendaftaran berhasil, alihkan ke halaman login
+                header("Location: login.html"); // Ganti dengan nama file halaman login Anda
+                exit();
+            } else {
+                echo "Error: " . $stmt->error;
+            }
+            $stmt->close();
+        } else {
+            echo "Error: " . $userStmt->error;
+        }
+        $userStmt->close();
     } else {
-        echo "Error: " . $stmt->error;
+        echo "Gagal mengupload file foto profil.";
     }
-
-    // Menutup pernyataan dan koneksi
-    $stmt->close();
-} else {
-    echo "Gagal mengupload file foto profil.";
 }
 
 // Menutup koneksi

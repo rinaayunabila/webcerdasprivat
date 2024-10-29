@@ -147,6 +147,10 @@
           <label for="password" class="form-label">Buat Kata Sandi</label>
           <input type="password" class="form-control" id="password" name="password" placeholder="Buat kata sandi" required minlength="8">
         </div>
+        <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="registerAsSiswa" name="registerAsSiswa" checked>
+                <label class="form-check-label" for="registerAsSiswa">Daftar sebagai Guru</label>
+            </div>
         <button type="submit" class="btn btn-primary w-100" style="background-color: #222645;">Daftar</button>
       </form>
     </div>

@@ -2,7 +2,7 @@
 $servername = "localhost"; 
 $username = "root"; 
 $password = ""; 
-$dbname = "mycerdasprivat"; 
+$dbname = "cerdasprivat"; 
 
 // Membuat koneksi ke database
 $conn = new mysqli($servername, $username, $password, $dbname);

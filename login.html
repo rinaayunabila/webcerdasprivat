@@ -73,7 +73,7 @@
                           <p class="text-center small">Selamat datang kembali</p>
                         </div> 
       
-                    <form action="login.php" method="post" class="row g-3 needs-validation"  >
+                    <!-- <form action="login.php" method="post" class="row g-3 needs-validation"  >
                       <div class="col-12">
                           <label for="no_ktp" class="form-label">Email</label>
                           <input type="text" name="no_ktp" class="form-control">
@@ -90,22 +90,34 @@
                       <div class="col-12">
                           <p class="small mb-0">Belum memiliki Akun? <a href="daftarakun.html">Buat Akun</a></p>
                       </div>
-                  </form>
+                  </form> -->
+
+                  <form action="login.php" method="post" class="row g-3 needs-validation">
+                    <div class="col-12">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control" required>
+                        <div class="invalid-feedback">Tolong tulis email anda</div>
+                    </div>
+                    <div class="col-12">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" required>
+                        <div class="invalid-feedback">Tolong tulis kata sandi anda</div>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary w-100" type="submit">Login</button>
+                    </div>
+                    <div class="col-12">
+                        <p class="small mb-0">Belum memiliki Akun? <a href="daftarakun.html">Buat Akun</a></p>
+                    </div>
+                </form>
+                
                   </div>
                 </div>
               </div>
             </section>
           </div>
         </main><!-- End #main -->
-        <footer id="footer" class="footer default-background">
 
-            <div class="container copyright mt-4">
-              <p>© <span>Copyright</span></p>
-            </div>
-        
-          </footer>
-        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-      
         <!-- Vendor JS Files -->
         <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
         <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
