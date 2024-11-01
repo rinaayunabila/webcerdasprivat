@@ -1,16 +1,3 @@
-/**
-* Template Name: Impact
-* Template URL: https://bootstrapmade.com/impact-bootstrap-business-website-template/
-* Updated: Aug 07 2024 with Bootstrap v5.3.3
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
-/*--------------------------------------------------------------
-# Font & Color Variables
-# Help: https://bootstrapmade.com/color-system/
---------------------------------------------------------------*/
-/* Fonts */
 :root {
   --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --heading-font: "Montserrat",  sans-serif;
@@ -18,15 +5,6 @@
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
-/* :root { 
-  --background-color: #ffffff; 
-  --default-color: #222645; 
-  --heading-color: #172a28; 
-  --accent-color: #222645; 
-  --surface-color: #ffffff; 
-  --contrast-color: #ffffff; 
-} */
-
 :root { 
   --background-color: #ffffff; /* Background color for the entire website, including individual sections */
   --default-color: #222222; /* Default color used for the majority of the text content across the entire website */
@@ -45,8 +23,13 @@
   --nav-dropdown-color: #01433c; /* Used for navigation links of the dropdown items in the navigation menu. */
   --nav-dropdown-hover-color: #008374; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
 }
+.link-block {
+  display: block;
+  text-decoration: none;
+  position: relative;
+  color: inherit; /* Pastikan teks tidak berubah warna */
+}
 
-/* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
 
 .light-background {
   --background-color: #f2f9f9;
@@ -62,13 +45,227 @@
 }
 
 .accent-background {
-  --background-color: #222645;
+  --background-color: #F8F4FC;
   --default-color: #ffffff;
-  --heading-color: #ffffff;
+  --heading-color: #ffffff; 
   --accent-color: #ffffff;
   --surface-color: #00b6a1;
   --contrast-color: #ffffff;
 }
+
+.footer-background{
+    --background-color: #222645;
+    --default-color: #ffffff;
+    --heading-color: #ffffff; 
+    --accent-color: #ffffff;
+    --surface-color: #00b6a1;
+    --contrast-color: #ffffff;
+}
+
+/* regis */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* tabel admin */
+
+.dataTables_wrapper {
+  margin-top: 20px;
+}
+
+.dataTables_wrapper .dataTables_length {
+  float: left;
+}
+
+.dataTables_wrapper .dataTables_filter {
+  float: right;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #305439;
+  color: #ffffff;
+  text-align: center;
+}
+/* end */
+
+/* add here */
+.custom-btn {
+  background-color: rgb(11, 130, 160);
+  border-color: rgb(11, 130, 160); /* Ubah sesuai dengan warna latar belakang yang diinginkan */
+  border-radius: 14px; /* Ubah sesuai dengan keinginan Anda */
+  margin-top: 10px;
+  margin-bottom: 10px;/* padding: 10px 20px; Ubah sesuai kebutuhan Anda */
+}
+
+/* button */
+.btn-custom {
+  background-color: white; /* Warna latar belakang putih */
+  color: black; /* Warna teks hitam */
+  padding: 10px 20px; /* Ukuran padding untuk mengatur tombol */
+  font-size: 18px; /* Ukuran teks */
+  border: 2px solid black; /* Border hitam untuk menambah kontras */
+  border-radius: 5px; /* Membuat sudut tombol rounded */
+  transition: background-color 0.3s ease; /* Menambahkan transisi halus */
+}
+
+.btn-custom:hover {
+  background-color: black; /* Warna latar saat di-hover */
+  color: white; /* Warna teks putih saat di-hover */
+}
+/* end */
+
+
+.register-container {
+  width: 400px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 50px auto;
+  border-radius: 10px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button.btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button.btn:hover {
+  background-color: #45a049;
+}
+
+p {
+  text-align: center;
+  margin-top: 15px;
+}
+
+a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+/* regis off */
+
+/* login on */
+/* body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+} */
+
+.login-container {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.btn {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.form-footer a {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+/* login finish */
 
 /* Smooth scroll */
 :root {
@@ -241,6 +438,7 @@ h6 {
 --------------------------------------------------------------*/
 .header {
   --background-color: #222645;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.3);
   --heading-color: #ffffff;
   color: var(--default-color);
   transition: all 0.5s;
@@ -592,11 +790,10 @@ h6 {
 # Global Footer
 --------------------------------------------------------------*/
 .footer {
-  color: var(--background-color);
-  background-color: var(--default-color);
+  color: var(--default-color);
+  background-color: var(--background-color);
   font-size: 14px;
   position: relative;
-
 }
 
 .footer .footer-top {
@@ -614,7 +811,7 @@ h6 {
 }
 
 .footer .footer-about .logo span {
-  color: var(--background-color);
+  color: var(--heading-color);
   font-size: 30px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -633,16 +830,16 @@ h6 {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--background-color), transparent 50%);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 50%);
   font-size: 16px;
-  color: color-mix(in srgb, var(--background-color), transparent 50%);
+  color: color-mix(in srgb, var(--default-color), transparent 50%);
   margin-right: 10px;
   transition: 0.3s;
 }
 
 .footer .social-links a:hover {
-  color: var(--background-color);
-  border-color: var(--background-color);
+  color: var(--default-color);
+  border-color: var(--default-color);
 }
 
 .footer h4 {
@@ -650,7 +847,6 @@ h6 {
   font-weight: bold;
   position: relative;
   padding-bottom: 12px;
-  color: var(--background-color);
 }
 
 .footer .footer-links {
@@ -680,7 +876,7 @@ h6 {
 }
 
 .footer .footer-links ul a {
-  color: color-mix(in srgb, var(--background-color), transparent 30%);
+  color: color-mix(in srgb, var(--default-color), transparent 30%);
   display: inline-block;
   line-height: 1;
 }
@@ -696,7 +892,7 @@ h6 {
 .footer .copyright {
   padding-top: 30px;
   padding-bottom: 30px;
-  border-top: 1px solid color-mix(in srgb, var(--background-color), transparent 90%);
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
 .footer .copyright p {
@@ -913,17 +1109,15 @@ section,
   font-size: 48px;
   font-weight: 700;
   margin-bottom: 20px;
-  color: #008374; 
+  color: #008374;
 }
 
 .hero h2 .accent {
-  /* color: var(--conrast-color); ganti*/
   color: #222645;
 }
 
 .hero p {
   color: #222645;
-  /* color: color-mix(in srgb, var(--default-color), transparent 40%); */
   font-weight: 400;
   margin-bottom: 30px;
 }
@@ -931,8 +1125,6 @@ section,
 .hero .btn-get-started {
   color: white; 
   background: #222645;
-  /* color: var(--heading-color);
-  background: var(--default-color); */
   font-family: var(--heading-font);
   font-weight: 500;
   font-size: 14px;
@@ -941,8 +1133,6 @@ section,
   padding: 14px 40px;
   border-radius: 50px;
   transition: 0.3s;
-  /* border: 2px solid color-mix(in srgb, var(--default-color), transparent 90%);
-  background-color: color-mix(in srgb, var(--default-color), transparent 90%); */
   border: 2px solid #222645; /* Border biru */
   background-color: #222645;
 }
@@ -957,13 +1147,11 @@ section,
   transition: 0.5s;
   margin-left: 25px;
   font-weight: 600;
-  /* color: var(--accent-color); */
   color: #60636d;
 }
 
 .hero .btn-watch-video i {
   color: #60636d;
-  /* color: color-mix(in srgb, var(--default-color), transparent 50%); */
   font-size: 32px;
   transition: 0.3s;
   line-height: 0;
@@ -971,7 +1159,6 @@ section,
 }
 
 .hero .btn-watch-video:hover i {
-  /* color: var(--default-color); */
   color: #222645;
 }
 
@@ -1009,7 +1196,6 @@ section,
   padding: 60px 30px;
   position: relative;
   overflow: hidden;
-  /* background: var(--background-color); */
   background: #222645;
   box-shadow: 0 0 29px 0 rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
@@ -1046,10 +1232,11 @@ section,
 }
 
 .hero .icon-box:hover .title,
-.hero .icon-box:hover .icon i {
-  /* color: var(--contrast-color); */
-  color: #008374; 
+.hero .icon-box:hover .icon {
+  color: #008374; /* Ubah warna menjadi biru saat di-hover */
 }
+
+
 
 /*--------------------------------------------------------------
 # About Section
@@ -1295,16 +1482,11 @@ section,
 /*--------------------------------------------------------------
 # Services Section
 --------------------------------------------------------------*/
-.services{
-  margin: 50px;
-}
 .services .service-item {
   background-color: var(--surface-color);
   padding: 40px;
-  box-shadow: 0px 0 30px rgba(0, 0, 0, 0.5);
-  margin: 30px;
+  box-shadow: 0px 0 30px rgba(0, 0, 0, 0.6);
   height: 100%;
-  align-items: center;
 }
 
 .services .service-item .icon {
@@ -1312,7 +1494,6 @@ section,
   height: 48px;
   position: relative;
   margin-bottom: 50px;
- 
 }
 
 .services .service-item .icon i {
@@ -1321,7 +1502,6 @@ section,
   transition: ease-in-out 0.3s;
   z-index: 2;
   position: relative;
-  
 }
 
 .services .service-item .icon:before {
@@ -1338,7 +1518,6 @@ section,
 }
 
 .services .service-item h3 {
-  text-align: center;
   color: color-mix(in srgb, var(--heading-color), transparent 20%);
   font-weight: 700;
   margin: 0 0 20px 0;
@@ -1384,7 +1563,7 @@ section,
 --------------------------------------------------------------*/
 .testimonials .testimonial-item {
   background-color: var(--surface-color);
-  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.3);
   box-sizing: content-box;
   padding: 30px;
   margin: 30px 15px;
@@ -1574,7 +1753,7 @@ section,
 --------------------------------------------------------------*/
 .team .member {
   background-color: var(--surface-color);
-  box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.2);
   text-align: center;
   border-radius: 15px;
   padding: 15px;
@@ -1801,7 +1980,7 @@ section,
   position: relative;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 5px 75px 0px rgba(252, 11, 11, 0.1);
   overflow: hidden;
 }
 
@@ -2273,9 +2452,9 @@ section,
 /*--------------------------------------------------------------
 # Starter Section Section
 --------------------------------------------------------------*/
-.starter-section {
+/* .starter-section { */
   /* Add your styles here */
-}
+/* } */
 
 /*--------------------------------------------------------------
 # Blog Posts Section

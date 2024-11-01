@@ -65,35 +65,94 @@
 
 <body class="index-page">
 
-  <header id="header" class="header fixed-top">
-
-    <div class="branding d-flex align-items-cente">
-
+<header id="header" class="header fixed-top">
+        <div class="branding d-flex align-items-center">
       <div class="container position-relative d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
-            <img src="assets/img/logoCP2.png" alt="" style="width: 40px; height: auto;">
-          </a>
-
+          <img src="assets/img/logoCP2.png" alt="" style="width: 40px; height: auto;">
+          <h1 class="sitename">Cerdas Privat</h1>
+          <span>.</span>
+        </a>
         <nav id="navmenu" class="navmenu">
-            <ul>
-              <li><a href="berandasis.html" class="active">Beranda<br></a></li>
-              <li><a href="gurusis.html">Guru</a></li>
-              <li class="dropdown"><a href="#"><span>Kelas</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                <ul>
-                    <li><a href="jadwalsis.html">Kelas Aktif</a></li>
-                    <li><a href="statuspendafsis.html">Status Pendaftaran</a></li>
-                  </ul>
-              </li>
-              <li><a href="profilsis.html">
+          <ul>
+            <li><a href="siswa-beranda.html" class="active">Beranda<br></a></li>
+            <li><a href="siswa-guru.php">Guru</a></li>
+            <li class="dropdown"><a href="#"><span>Kelas</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a href="siswa-jadwal.php">Kelas Aktif</a></li>
+                <li><a href="siswa-statuspendaftaran.php">Status Pendaftaran</a></li>
+              </ul>
+            </li>
+            <li><a href="siswa-profil.php">
                 <img src="assets/img/services.jpg" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
               </a></li>
-            </ul>
-            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-          </nav>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
       </div>
     </div>
-
   </header>
+  <main class="main">
+     <!-- Services Section -->
+     <section id="services" class="services section">
+
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+          <h2>Guru</h2>
+          <p>Silahkan pilih guru yang sesuai dengan kriteria kamu.</p>
+        </div><!-- End Section Title -->
+  
+        <div class="container">
+  <h1 class="mt-5 mb-4">Daftar Guru</h1>
+  <div class="row gy-4">
+    <?php
+    // Memasukkan koneksi ke database
+    include 'koneksi.php';
+
+    // Query SQL untuk mengambil data dari tabel Guru
+    $sql = "SELECT * FROM Guru";
+    $result = $conn->query($sql);
+
+    // Mengecek apakah ada hasil
+    if ($result->num_rows > 0) {
+      // Menampilkan setiap row data sebagai card
+      while ($row = $result->fetch_assoc()) {
+    ?>
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-item position-relative border p-3 mb-4 rounded shadow-sm">
+          <div class="d-flex align-items-start">
+            <div class="profile-picture mr-3">
+              <img src="<?php echo $row['foto_profil']; ?>" alt="Profile Picture" style="width: 80px; height: 80px;">
+            </div>
+            <div class="profile-info">
+              <p class="mb-1"><strong>Nama:</strong> <?php echo $row['nama']; ?></p>
+              <p class="mb-1"><strong>Pengalaman Mengajar:</strong> <?php echo $row['pengalaman_mengajar']; ?> tahun</p>
+              <p class="mb-1"><strong>Mata Pelajaran:</strong> <?php echo $row['mata_pelajaran']; ?></p>
+              <p class="mb-1"><strong>Tingkat:</strong> <?php echo $row['level']; ?></p>
+              <p class="mb-1"><strong>Alamat:</strong> <?php echo $row['alamat']; ?></p>
+              <p class="mb-1"><strong>Tarif:</strong> Rp<?php echo number_format($row['tarif'], 0, ',', '.'); ?> /jam</p>
+            </div>
+          </div>
+          <div class="profile-description mt-3">
+            <p><?php echo $row['deskripsi']; ?></p>
+          </div>
+          <div class="text-right mt-3">
+            <!-- Tombol Daftar dengan atribut data-bs-toggle untuk memicu modal -->
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">Daftar</button>
+          </div>
+        </div>
+      </div>
+    <?php
+      }
+    } else {
+      echo "<p>Belum ada data guru tersedia.</p>";
+    }
+
+    // Menutup koneksi database
+    $conn->close();
+    ?>
+  </div>
+</div>
   <main class="main">
     <div class="class-container">
         <div class="class-title">Kelasku</div>
