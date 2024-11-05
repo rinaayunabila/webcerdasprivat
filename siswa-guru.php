@@ -5,8 +5,6 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Siswa-Guru</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
 
   <!-- Favicons -->
   <link href="assets/img/logoCP2.png" rel="icon">
@@ -33,7 +31,7 @@
     .profile-info {
         font-weight: bold;
     }
-</style>
+  </style>
 </head>
 
 <body class="index-page">
@@ -69,43 +67,34 @@
     <div class="container section-title" data-aos="fade-up">
       <h2>Guru</h2>
       <p>Silahkan pilih guru yang sesuai dengan kriteria kamu.</p>
-    </div><!-- End Section Title -->
-  
+    </div>
+
     <div class="container">
       <div class="row gy-4">
         <?php
-        // Memasukkan koneksi ke database
         include 'koneksi.php';
-
-        // Query SQL untuk mengambil data dari tabel Guru
         $sql = "SELECT * FROM Guru";
         $result = $conn->query($sql);
 
-        // Mengecek apakah ada hasil
         if ($result->num_rows > 0) {
-          // Menampilkan setiap row data sebagai card
           while ($row = $result->fetch_assoc()) {
         ?>
           <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
             <div class="service-item position-relative border p-3 mb-4 rounded shadow-sm">
               <div class="d-flex align-items-start">
                 <div class="profile-picture mr-3">
-                  <img src="<?php echo $row['foto_profil']; ?>" alt="Profile Picture" style="width: 80px; height: 80px;">
+                  <img src="<?php echo $row['foto_profil']; ?>" alt="Profile Picture">
                 </div>
                 <div class="profile-info">
-                  <p class="mb-1"><strong>Nama:</strong> <?php echo $row['nama']; ?></p>
-                  <p class="mb-1"><strong>Pengalaman Mengajar:</strong> <?php echo $row['pengalaman_mengajar']; ?> tahun</p>
-                  <p class="mb-1"><strong>Mata Pelajaran:</strong> <?php echo $row['mata_pelajaran']; ?></p>
-                  <p class="mb-1"><strong>Tingkat:</strong> <?php echo $row['level']; ?></p>
-                  <p class="mb-1"><strong>Alamat:</strong> <?php echo $row['alamat']; ?></p>
-                  <p class="mb-1"><strong>Tarif:</strong> Rp<?php echo number_format($row['tarif'], 0, ',', '.'); ?> /jam</p>
+                  <p><strong>Nama:</strong> <?php echo $row['nama']; ?></p>
+                  <p><strong>Pengalaman Mengajar:</strong> <?php echo $row['pengalaman_mengajar']; ?> tahun</p>
+                  <p><strong>Mata Pelajaran:</strong> <?php echo $row['mata_pelajaran']; ?></p>
+                  <p><strong>Tingkat:</strong> <?php echo $row['level']; ?></p>
+                  <p><strong>Alamat:</strong> <?php echo $row['alamat']; ?></p>
+                  <p><strong>Tarif:</strong> Rp<?php echo number_format($row['tarif'], 0, ',', '.'); ?> /jam</p>
                 </div>
               </div>
-              <div class="profile-description mt-3">
-                <p><?php echo $row['deskripsi']; ?></p>
-              </div>
               <div class="text-right mt-3">
-                <!-- Tombol Daftar dengan atribut data-bs-toggle untuk memicu modal -->
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal" data-guru-id="<?php echo $row['id_guru']; ?>">Daftar</button>
               </div>
             </div>
@@ -115,8 +104,6 @@
         } else {
           echo "<p>Belum ada data guru tersedia.</p>";
         }
-
-        // Menutup koneksi database
         $conn->close();
         ?>
       </div>
@@ -141,7 +128,7 @@
       </div>
     </div>
     
-  </section><!-- /Services Section -->
+  </section>
 </main>
 
 <footer id="footer" class="footer accent-background">
@@ -150,7 +137,6 @@
   </div>
 </footer>
 
-<!-- Scroll Top -->
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- Vendor JS Files -->
@@ -159,11 +145,12 @@
 
 <!-- Custom JavaScript Code for Registration -->
 <script>
-  document.querySelectorAll('.btn-primary').forEach(button => {
+document.querySelectorAll('.btn-primary').forEach(button => {
   button.addEventListener('click', function() {
     const guruId = this.getAttribute('data-guru-id');
-    // Attach guruId directly to the function call in the next listener
-    document.getElementById('confirm-register').onclick = () => registerGuru(guruId);
+    document.getElementById('confirm-register').onclick = function() {
+      registerGuru(guruId);
+    };
   });
 });
 
@@ -186,9 +173,6 @@ function registerGuru(guruId) {
   })
   .catch(error => console.error('Error:', error));
 }
-
 </script>
-
 </body>
-
 </html>

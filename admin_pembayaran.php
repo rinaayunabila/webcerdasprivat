@@ -48,10 +48,10 @@
           <nav id="navmenu" class="navmenu">
             <ul>
               <li><a href="admin-beranda.html">Beranda<br></a></li>
-              <li><a href="admin_guru.html" >Guru</a></li>
-              <li><a href="admin_siswa.html">Siswa</a></li>
-              <li><a href="admin_pendaftaran.html">Pendaftaran</a></li>
-              <li><a href="admin_pembayaran.html" class="active">Pembayaran</a></li>
+              <li><a href="admin_guru.php" >Guru</a></li>
+              <li><a href="admin_siswa.php">Siswa</a></li>
+              <li><a href="admin_pendaftaran.php">Pendaftaran</a></li>
+              <li><a href="admin_pembayaran.php" class="active">Pembayaran</a></li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
           </nav>

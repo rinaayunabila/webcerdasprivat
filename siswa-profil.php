@@ -65,29 +65,33 @@ $conn->close();
 </head>
 
 <body class="index-page">
-  <header id="header" class="header fixed-top">
-    <div class="branding d-flex align-items-center">
-      <div class="container position-relative d-flex align-items-center justify-content-between">
+<header id="header" class="header fixed-top">
+  <div class="branding d-flex align-items-center">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
         <img src="assets/img/logoCP2.png" alt="" style="width: 40px; height: auto;">
-        <nav id="navmenu" class="navmenu">
-          <ul>
-            <li><a href="siswa-beranda.html" class="active">Beranda<br></a></li>
-            <li><a href="siswa-guru.php">Guru</a></li>
-            <li class="dropdown"><a href="#"><span>Kelas</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-              <ul>
-                <li><a href="siswa-jadwal.php">Kelas Aktif</a></li>
-                <li><a href="siswa-statuspendaftara.php">Status Pendaftaran</a></li>
-              </ul>
-            </li>
-            <li><a href="siswa-profil.php">
-                <img src="assets/img/services.jpg" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
-              </a></li>
-          </ul>
-          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-        </nav>
-      </div>
+        <h1 class="sitename">Cerdas Privat</h1>
+        <span>.</span>
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="siswa-beranda.html" class="active">Beranda<br></a></li>
+          <li><a href="siswa-guru.php">Guru</a></li>
+          <li class="dropdown"><a href="#"><span>Kelas</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="siswa-jadwal.php">Kelas Aktif</a></li>
+              <li><a href="siswa-statuspendaftaran.php">Status Pendaftaran</a></li>
+            </ul>
+          </li>
+          <li><a href="siswa-profil.php">
+              <img src="assets/img/services.jpg" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
+            </a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
     </div>
-  </header>
+  </div>
+</header>
 
   <main class="profil-siswa">
     <div class="form-container">

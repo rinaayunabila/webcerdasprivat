@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Admin Pembayaran</title>
+  <title>Admin Guru</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -42,16 +42,16 @@
       <div class="container position-relative d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
             <img src="assets/img/logoCP2.png" alt="" style="width: 40px; height: auto;">
-            <h1 class="sitename">Cerdas Privat</h1>
+            <h3 class="sitename" style="font-weight: bold;">Cerdas Privat</h3> 
           </a>
 
           <nav id="navmenu" class="navmenu">
             <ul>
               <li><a href="admin-beranda.html">Beranda<br></a></li>
-              <li><a href="admin_guru.html" >Guru</a></li>
-              <li><a href="admin_siswa.html">Siswa</a></li>
-              <li><a href="admin_pendaftaran.html" class="active">Pendaftaran</a></li>
-              <li><a href="admin_pembayaran.html">Pembayaran</a></li>
+              <li><a href="admin_guru.php" class="active">Guru</a></li>
+              <li><a href="admin_siswa.php">Siswa</a></li>
+              <li><a href="admin_pendaftaran.php">Pendaftaran</a></li>
+              <li><a href="admin_pembayaran.php">Pembayaran</a></li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
           </nav>
@@ -68,57 +68,70 @@
             <div class="container">  
               <br><br><br>
               <div class="d-flex justify-content-between mb-3 align-items-center">
-                <h2 style="margin-left: 10px;"> Pendaftaran</h2>
+                <h2>Data Guru</h2>
                 <div class="d-flex">
                     <input type="text" class="form-control me-2" placeholder="Search..." style="width: 200px; height: 40px;">
                     <button class="btn btn-success" style="background-color: #28a745; color: #ffffff; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; margin-left: 5px;">
                         <i class="bi bi-plus"></i>
                     </button>
                 </div>
-            </div><br><br>
+            </div><br>
               <div class="container">
                 <table id="table" class="table table-striped table-bordered" style="width:100%">
                   <thead> 
                     <tr>
                       <th>No</th>
-                      <th>Tanggal Pendaftaran</th>
-                      <th>Nama Siswa</th>
-                      <th>Nama Guru</th>
+                      <th>Foto Profil</th>
+                      <th>Nama</th>
+                      <th>Deskripsi</th>
+                      <th>Pendidikan</th>
                       <th>Mata Pelajaran</th>
-                      <th>Status</th>
+                      <th>Pengalaman Mengajar</th>
+                      <th>Level</th>
+                      <th>Tarif</th>
+                      <th>Alamat</th>
+                      <th>No hp</th>
                       <th>Aksi</th> <!-- Kolom Aksi -->
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>12-10-2024</td>
-                      <td>Ayuna</td>
-                      <td>Miss Fitri</td>
-                      <td>Bahasa Inggris</td>
-                      <td>Diproses</td>
-                      <td>
-                        <div class="d-flex">
-                          <button class="btn btn-warning btn-custom me-2"><i class="bi bi-pencil"></i></button> <!-- Tombol Edit -->
-                          <button class="btn btn-danger btn-custom"><i class="bi bi-trash"></i></button> <!-- Tombol Delete -->
-                        </div>
-                      </td>
-                    </tr>   
-                    <tr>
-                        <td>1</td>
-                        <td>12-10-2024</td>
-                        <td>Ayuna</td>
-                        <td>Miss Fitri</td>
-                        <td>Bahasa Inggris</td>
-                        <td>Diproses</td>
-                        <td>
-                          <div class="d-flex">
-                            <button class="btn btn-warning btn-custom me-2"><i class="bi bi-pencil"></i></button> <!-- Tombol Edit -->
-                            <button class="btn btn-danger btn-custom"><i class="bi bi-trash"></i></button> <!-- Tombol Delete -->
-                          </div>
-                        </td>
-                      </tr>   
-                    <!-- Tambahkan baris lain sesuai kebutuhan -->
+                    <?php
+                      include 'koneksi.php'; // Include your database connection file
+
+                      $query = "SELECT id_guru, foto_profil, nama, deskripsi, pendidikan, mata_pelajaran, pengalaman_mengajar, level, tarif, alamat, no_hp FROM Guru";
+                      $result = mysqli_query($conn, $query);
+
+                      if (mysqli_num_rows($result) > 0) {
+                        $no = 1;
+                        while ($row = mysqli_fetch_assoc($result)) {
+                          echo "<tr>";
+                          echo "<td>" . $no++ . "</td>";
+                          // Display the profile image from the database. Use a placeholder if `foto_profil` is empty
+                          $foto_profil = !empty($row['foto_profil']) ? $row['foto_profil'] : 'https://via.placeholder.com/50';
+                          echo "<td><img src='$foto_profil' alt='Foto Profil' style='width: 50px; height: 50px;'></td>";
+                          echo "<td>" . $row['nama'] . "</td>";
+                          echo "<td>" . substr($row['deskripsi'], 0, 80) . "...</td>"; // Limit description to 80 characters
+                          echo "<td>" . $row['pendidikan'] . "</td>";
+                          echo "<td>" . $row['mata_pelajaran'] . "</td>";
+                          echo "<td>" . $row['pengalaman_mengajar'] . " tahun</td>";
+                          echo "<td>" . $row['level'] . "</td>";
+                          echo "<td>" . number_format($row['tarif'], 2) . "</td>";
+                          echo "<td>" . $row['alamat'] . "</td>";
+                          echo "<td>" . $row['no_hp'] . "</td>";
+                          echo "<td>
+                                  <div class='d-flex'>
+                                    <button class='btn btn-warning btn-custom me-2'><i class='bi bi-pencil'></i></button>
+                                    <button class='btn btn-danger btn-custom'><i class='bi bi-trash'></i></button>
+                                  </div>
+                                </td>";
+                          echo "</tr>";
+                        }
+                      } else {
+                        echo "<tr><td colspan='12' class='text-center'>No data available</td></tr>";
+                      }
+
+                      mysqli_close($conn); // Close the database connection
+                      ?>
                   </tbody>
                 </table>
               </div>

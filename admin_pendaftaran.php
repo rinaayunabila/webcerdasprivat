@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Admin Guru</title>
+  <title>Admin Pembayaran</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -42,16 +42,16 @@
       <div class="container position-relative d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
             <img src="assets/img/logoCP2.png" alt="" style="width: 40px; height: auto;">
-            <h3 class="sitename" style="font-weight: bold;">Cerdas Privat</h3> 
+            <h1 class="sitename">Cerdas Privat</h1>
           </a>
 
           <nav id="navmenu" class="navmenu">
             <ul>
               <li><a href="admin-beranda.html">Beranda<br></a></li>
-              <li><a href="admin_guru.html" class="active">Guru</a></li>
-              <li><a href="admin_siswa.html">Siswa</a></li>
-              <li><a href="admin_pendaftaran.html">Pendaftaran</a></li>
-              <li><a href="admin_pembayaran.html">Pembayaran</a></li>
+              <li><a href="admin_guru.php" >Guru</a></li>
+              <li><a href="admin_siswa.php">Siswa</a></li>
+              <li><a href="admin_pendaftaran.php" class="active">Pendaftaran</a></li>
+              <li><a href="admin_pembayaran.php">Pembayaran</a></li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
           </nav>
@@ -68,65 +68,56 @@
             <div class="container">  
               <br><br><br>
               <div class="d-flex justify-content-between mb-3 align-items-center">
-                <h2>Data Guru</h2>
+                <h2 style="margin-left: 10px;"> Pendaftaran</h2>
                 <div class="d-flex">
                     <input type="text" class="form-control me-2" placeholder="Search..." style="width: 200px; height: 40px;">
                     <button class="btn btn-success" style="background-color: #28a745; color: #ffffff; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; margin-left: 5px;">
                         <i class="bi bi-plus"></i>
                     </button>
                 </div>
-            </div><br>
+            </div><br><br>
               <div class="container">
                 <table id="table" class="table table-striped table-bordered" style="width:100%">
                   <thead> 
                     <tr>
                       <th>No</th>
-                      <th>Foto Profil</th>
-                      <th>Nama</th>
-                      <th>Deskripsi</th>
-                      <th>Pendidikan</th>
+                      <th>Tanggal Pendaftaran</th>
+                      <th>Nama Siswa</th>
+                      <th>Nama Guru</th>
                       <th>Mata Pelajaran</th>
-                      <th>Level</th>
-                      <th>Tarif</th>
-                      <th>Alamat</th>
+                      <th>Status</th>
                       <th>Aksi</th> <!-- Kolom Aksi -->
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>1</td>
-                      <td><img src="https://via.placeholder.com/50" alt="Foto Profil"></td>
-                      <td>Rina Ayu</td>
-                      <td>Saya senang berbagi ilmu yang saya ...</td>
-                      <td>SI Teknik Informatika</td>
-                      <td>Informatika</td>
-                      <td>SMA/SMK</td>
-                      <td>120.000</td>
-                      <td>Soebrantas</td>
+                      <td>12-10-2024</td>
+                      <td>Ayuna</td>
+                      <td>Miss Fitri</td>
+                      <td>Bahasa Inggris</td>
+                      <td>Diproses</td>
                       <td>
                         <div class="d-flex">
                           <button class="btn btn-warning btn-custom me-2"><i class="bi bi-pencil"></i></button> <!-- Tombol Edit -->
                           <button class="btn btn-danger btn-custom"><i class="bi bi-trash"></i></button> <!-- Tombol Delete -->
                         </div>
                       </td>
-                    </tr>
+                    </tr>   
                     <tr>
-                      <td>2</td>
-                      <td><img src="https://via.placeholder.com/50" alt="Foto Profil"></td>
-                      <td>Rina Ayu</td>
-                      <td>Saya senang berbagi ilmu yang saya ...</td>
-                      <td>SI Teknik Informatika</td>
-                      <td>Informatika</td>
-                      <td>SMA/SMK</td>
-                      <td>120.000</td>
-                      <td>Soebrantas</td>
-                      <td>
-                        <div class="d-flex">
-                          <button class="btn btn-warning btn-custom me-2"><i class="bi bi-pencil"></i></button>
-                          <button class="btn btn-danger btn-custom"><i class="bi bi-trash"></i></button>
-                        </div>
-                      </td>
-                    </tr>
+                        <td>1</td>
+                        <td>12-10-2024</td>
+                        <td>Ayuna</td>
+                        <td>Miss Fitri</td>
+                        <td>Bahasa Inggris</td>
+                        <td>Diproses</td>
+                        <td>
+                          <div class="d-flex">
+                            <button class="btn btn-warning btn-custom me-2"><i class="bi bi-pencil"></i></button> <!-- Tombol Edit -->
+                            <button class="btn btn-danger btn-custom"><i class="bi bi-trash"></i></button> <!-- Tombol Delete -->
+                          </div>
+                        </td>
+                      </tr>   
                     <!-- Tambahkan baris lain sesuai kebutuhan -->
                   </tbody>
                 </table>

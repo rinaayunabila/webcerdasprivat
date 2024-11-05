@@ -1,23 +1,29 @@
 <?php
-include 'koneksi.php'; // Database connection
+// Memulai session untuk mengakses id_siswa yang tersimpan
+session_start();
 
-// Get data from request body
-$data = json_decode(file_get_contents('php://input'), true);
-$id_guru = $data['id_guru'];
-$id_siswa = /* your logic here to get the currently logged-in student's ID */
+// Memasukkan koneksi ke database
+include 'koneksi.php';
 
-// Prepare the SQL insert statement
-$sql = "INSERT INTO Pendaftaran (id_siswa, id_guru, status, tanggal_pendaftaran)
-        VALUES ('$id_siswa', '$id_guru', 'pending', NOW())";
+// Mendekode JSON dari request body
+$data = json_decode(file_get_contents("php://input"), true);
+$id_guru = $data['id_guru']; // ID guru yang dikirim dari JavaScript
 
-$response = [];
-if ($conn->query($sql) === TRUE) {
-    $response['success'] = true;
+// Memastikan id_siswa sudah ada di session
+if (isset($_SESSION['id_siswa']) && $id_guru) {
+    $id_siswa = $_SESSION['id_siswa'];
+
+    // Query SQL untuk menyimpan data pendaftaran ke tabel Pendaftaran
+    $sql = "INSERT INTO Pendaftaran (id_guru, id_siswa) VALUES ('$id_guru', '$id_siswa')";
+    if ($conn->query($sql) === TRUE) {
+        echo json_encode(["success" => true]);
+    } else {
+        echo json_encode(["success" => false, "message" => "Gagal menyimpan data: " . $conn->error]);
+    }
 } else {
-    $response['success'] = false;
-    $response['message'] = "Error: " . $sql . "<br>" . $conn->error;
+    echo json_encode(["success" => false, "message" => "ID Guru atau ID Siswa tidak ditemukan"]);
 }
 
-echo json_encode($response);
+// Menutup koneksi database
 $conn->close();
 ?>
