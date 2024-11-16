@@ -18,20 +18,11 @@
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
-/* :root { 
-  --background-color: #ffffff; 
-  --default-color: #222645; 
-  --heading-color: #172a28; 
-  --accent-color: #222645; 
-  --surface-color: #ffffff; 
-  --contrast-color: #ffffff; 
-} */
-
 :root { 
   --background-color: #ffffff; /* Background color for the entire website, including individual sections */
-  --default-color: #222222; /* Default color used for the majority of the text content across the entire website */
-  --heading-color: #222645; /* Color for headings, subheadings and title throughout the website */
-  --accent-color: #008374; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --default-color: #222645; /* Default color used for the majority of the text content across the entire website */
+  --heading-color: #172a28; /* Color for headings, subheadings and title throughout the website */
+  --accent-color: #222645; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
   --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
   --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
 }
@@ -39,7 +30,7 @@
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
   --nav-color: #ffffff;  /* The default color of the main navmenu links */
-  --nav-hover-color: #008374; /* Applied to main navmenu links when they are hovered over or active */
+  --nav-hover-color: #222645; /* Applied to main navmenu links when they are hovered over or active */
   --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
   --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
   --nav-dropdown-color: #01433c; /* Used for navigation links of the dropdown items in the navigation menu. */
@@ -69,7 +60,16 @@
   --surface-color: #00b6a1;
   --contrast-color: #ffffff;
 }
-
+/* image user header */
+.profile-img {
+  width: auto;
+  height: 30px;
+  object-fit: cover;
+  border: 1.5px solid white; /* White border */
+  padding: 2px; /* Adds a bit of padding inside the border */
+  border-radius: 30%; /* Ensures the border is circular */
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Optional: subtle shadow */
+}
 /* Smooth scroll */
 :root {
   scroll-behavior: smooth;
@@ -403,6 +403,7 @@ h6 {
   .navmenu .active,
   .navmenu .active:focus {
     color: var(--nav-color);
+    
   }
 
   .navmenu .dropdown ul {
@@ -460,6 +461,20 @@ h6 {
     left: -100%;
     visibility: visible;
   }
+  /* garis bawah hover */
+    .navmenu a:hover,
+  .navmenu a.active {
+    border-bottom: 2px solid #06dac1;
+    padding-bottom: 5px;
+  }
+
+  /* Jangan terpengaruh oleh garis bawah hover untuk link di dalam tombol */
+  .navmenu li button a:hover,
+  .navmenu li button a.active {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
 }
 
 /* Mobile Navigation */
@@ -913,26 +928,21 @@ section,
   font-size: 48px;
   font-weight: 700;
   margin-bottom: 20px;
-  color: #008374; 
 }
 
 .hero h2 .accent {
-  /* color: var(--conrast-color); ganti*/
-  color: #222645;
+  color: var(--conrast-color);
 }
 
 .hero p {
-  color: #222645;
-  /* color: color-mix(in srgb, var(--default-color), transparent 40%); */
+  color: color-mix(in srgb, var(--default-color), transparent 40%);
   font-weight: 400;
   margin-bottom: 30px;
 }
 
 .hero .btn-get-started {
-  color: white; 
-  background: #222645;
-  /* color: var(--heading-color);
-  background: var(--default-color); */
+  color: var(--heading-color);
+  background: var(--default-color);
   font-family: var(--heading-font);
   font-weight: 500;
   font-size: 14px;
@@ -941,15 +951,12 @@ section,
   padding: 14px 40px;
   border-radius: 50px;
   transition: 0.3s;
-  /* border: 2px solid color-mix(in srgb, var(--default-color), transparent 90%);
-  background-color: color-mix(in srgb, var(--default-color), transparent 90%); */
-  border: 2px solid #222645; /* Border biru */
-  background-color: #222645;
+  border: 2px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  background-color: color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
 .hero .btn-get-started:hover {
   border-color: color-mix(in srgb, var(--default-color), transparent 60%);
-  background-color: #00b6a1;
 }
 
 .hero .btn-watch-video {
@@ -957,13 +964,11 @@ section,
   transition: 0.5s;
   margin-left: 25px;
   font-weight: 600;
-  /* color: var(--accent-color); */
-  color: #60636d;
+  color: var(--accent-color);
 }
 
 .hero .btn-watch-video i {
-  color: #60636d;
-  /* color: color-mix(in srgb, var(--default-color), transparent 50%); */
+  color: color-mix(in srgb, var(--default-color), transparent 50%);
   font-size: 32px;
   transition: 0.3s;
   line-height: 0;
@@ -971,8 +976,7 @@ section,
 }
 
 .hero .btn-watch-video:hover i {
-  /* color: var(--default-color); */
-  color: #222645;
+  color: var(--default-color);
 }
 
 @media (max-width: 640px) {
@@ -989,7 +993,6 @@ section,
 .hero .icon-boxes {
   padding-bottom: 60px;
   z-index: 4;
-  background-color: #F8F4FC;
 }
 
 @media (min-width: 1200px) {
@@ -1009,8 +1012,7 @@ section,
   padding: 60px 30px;
   position: relative;
   overflow: hidden;
-  /* background: var(--background-color); */
-  background: #222645;
+  background: var(--background-color);
   box-shadow: 0 0 29px 0 rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
   border-radius: 8px;
@@ -1045,10 +1047,9 @@ section,
   background-color: color-mix(in srgb, var(--background-color), white 10%);
 }
 
-.hero .icon-box:hover .title,
-.hero .icon-box:hover .icon i {
-  /* color: var(--contrast-color); */
-  color: #008374; 
+.hero .icon-box:hover .title a,
+.hero .icon-box:hover .icon {
+  color: var(--contrast-color);
 }
 
 /*--------------------------------------------------------------

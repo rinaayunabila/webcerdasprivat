@@ -1,18 +1,18 @@
 <?php
-// Mulai sesi untuk mendapatkan informasi login
+// Start the session to get login info
 session_start();
 
-// Include file koneksi
+// Include connection file
 include('koneksi.php');
 
-// Dapatkan id_guru dari akun yang sedang login
-$id_guru = $_SESSION['id_guru']; // Pastikan id_guru disimpan dalam sesi login
+// Get the teacher's ID from the logged-in session
+$id_guru = $_SESSION['id_guru']; // Ensure id_guru is stored in session
 
-// Query untuk mengambil data siswa yang diterima oleh guru yang login
+// Query untuk mengambil data siswa yang diterima atau ditolak pada guru yang login
 $query = "SELECT S.nama, S.sekolah, P.id_pendaftaran, P.tanggal_pendaftaran, P.status 
           FROM Pendaftaran P
           JOIN Siswa S ON P.id_siswa = S.id_siswa
-          WHERE P.id_guru = ? AND P.status = 'Diterima'"; // Menambahkan filter status 'Diterima'
+          WHERE P.id_guru = ? AND (P.status = 'Diterima' OR P.status = 'Ditolak')";
 
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $id_guru);
@@ -26,7 +26,7 @@ $result = $stmt->get_result();
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Guru-Siswa</title>
+  <title>Guru-Riwayat</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -153,8 +153,8 @@ h2 {
         <nav id="navmenu" class="navmenu">
           <ul>
             <li><a href="guru-beranda.php" >Beranda<br></a></li>
-            <li><a href="guru_siswa.php" class="active">Siswa</a></li>
-            <li><a href="guru_pendaftaransiswa.php">Pendaftaran</a></li>
+            <li><a href="guru_siswa.php" >Siswa</a></li>
+            <li><a href="guru_pendaftaransiswa.php"class="active">Pendaftaran</a></li>
             <li><a href="guru_pembayaran.php">Pembayaran</a></li>
             <li><a href="guru_profillguru.php">
               <img src="assets/img/rw2.jpg" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
@@ -169,40 +169,35 @@ h2 {
 <!-- Content Section -->
 <section style="padding-top: 100px;"> <!-- Sesuaikan padding-top dengan tinggi header -->
   <div class="class-container d-flex align-items-center" style="padding-left: 20px;">
-    <a href="guru_siswa.php" class="me-3" style="font-weight: bold; text-decoration: none">
-        Siswa
+    <a href="guru_pendaftaransiswa.php" class="me-3" style="font-weight: bold; text-decoration: none">
+        Siswa Mendaftar
     </a>
-    <span style="color: #222645;" >|</span>
-    <a href="guru_jadwalkelas.php" class="ms-3" style="font-weight: bold; text-decoration: none;">
-        Jadwal Kelas
+    <span style="color: #222645; padding-left: 20px;"> |</span>
+    <a href="guru_riwayat.php" class="ms-3" style="font-weight: bold; text-decoration: none;">
+        Riwayat
     </a>
   </div>
 </section>
 
 
-<main class="container mt-5">
-    <h2>Siswa yang Diterima</h2>
+<main class="container">
+    <h2>Riwayat Pendaftaran Siswa</h2>
     <div class="row gy-4">
-
-      <?php
-      // Loop melalui setiap pendaftaran yang diterima untuk menampilkan detail siswa
-      while ($row = $result->fetch_assoc()) {
-      ?>
+      <?php while ($row = $result->fetch_assoc()) { ?>
         <div class="col-md-12">
-          <div class="card p-3 shadow-sm d-flex align-items-center justify-content-between flex-md-row">
+          <div class="card p-3 shadow-sm">
             <div class="d-flex align-items-center">
-              <img src="assets/img/services.jpg" class="rounded-circle me-3" alt="Profile Picture" style="width: 60px; height: 60px; object-fit: cover;">
+              <img src="assets/img/services.jpg" class="rounded-circle me-3" alt="Profile Picture" style="width: 60px; height: 60px;">
               <div>
-                <p class="m-0"><strong>Nama:</strong> <?php echo htmlspecialchars($row['nama']); ?></p>
-                <p class="m-0">Sekolah: <?php echo htmlspecialchars($row['sekolah']); ?></p>
-                <p class="m-0">Tanggal Pendaftaran: <?php echo htmlspecialchars($row['tanggal_pendaftaran']); ?></p>
-                </div>
+                <p><strong>Nama:</strong> <?php echo htmlspecialchars($row['nama']); ?></p>
+                <p>Sekolah: <?php echo htmlspecialchars($row['sekolah']); ?></p>
+                <p>Tanggal Pendaftaran: <?php echo htmlspecialchars($row['tanggal_pendaftaran']); ?></p>
+                <p><strong>Status:</strong> <?php echo htmlspecialchars($row['status']); ?></p>
+              </div>
             </div>
           </div>
         </div>
-      <?php
-      }
-      ?>
+      <?php } ?>
     </div>
   </main>
 

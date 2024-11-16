@@ -1,3 +1,21 @@
+<?php
+session_start();
+include 'koneksi.php';
+
+// Get id_siswa from session
+$id_siswa = $_SESSION['id_siswa'];
+
+$sql = "SELECT Guru.id_guru, Guru.nama, Guru.mata_pelajaran, Guru.level, Guru.tarif, Guru.foto_profil, Pendaftaran.status, Pendaftaran.id_pendaftaran 
+        FROM Pendaftaran 
+        JOIN Guru ON Pendaftaran.id_guru = Guru.id_guru 
+        WHERE Pendaftaran.id_siswa = ? AND Pendaftaran.status = 'Diterima'";
+
+        
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id_siswa);
+$stmt->execute();
+$result = $stmt->get_result();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,54 +46,90 @@
   <link href="assets/css/main.css" rel="stylesheet">
 
   <style>
-    table {
-      width: 1200px;
-      border-collapse: collapse;
-      padding: 20px;
-      margin: 20px auto;
-    }
+.service-item {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-    table, th, td {
-      border: 1px solid #000000;
-    }
+.profile-picture img {
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-    th, td {
-      padding: 5px;
-      text-align: center;
-    }
+.profile-info {
+  font-weight: bold;
+  color: #333;
+}
 
-    tr:nth-child(even) {
-      background-color: #f2f2f2;
-    }
-     /* Style untuk kontainer */
-     .class-container {
-      width: 1200px;
-      padding: 5px;
-      margin: 100px auto;
-      
-      border-radius: 10px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-      background-color: #d9d9d9;
-      font-size: 18px;
-      color: #000000;
-      margin-bottom: 10px; 
-    }
+.profile-description p {
+  font-size: 14px;
+  color: #555;
+}
+
+#scroll-top:hover {
+  background-color: #008fd4;
+}
+
+#scroll-top i {
+  font-size: 24px;
+}
+
+section {
+  padding-top: 80px; /* Sesuaikan dengan tinggi header */
+}
+
+/* Custom grid and margin adjustments */
+.container.my-5 {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.container.text-center {
+  margin-top: 20px;
+}
+
+.row.g-3 {
+  margin-top: 30px;
+}
+
+.bg-custom {
+  background-color: #e0e0e0;
+  padding: 30px 0;
+}
+
+h2 {
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+/* siswa */
+.class-container {
+  width: 1200px;
+  padding: 5px;
+  margin: auto;
+  
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  background-color: #d9d9d9;
+  font-size: 15px;
+  color: #000000;
+  margin-bottom: 30px; }
   </style>
 </head>
 
 <body class="index-page">
-
 <header id="header" class="header fixed-top">
-        <div class="branding d-flex align-items-center">
+    <div class="branding d-flex align-items-center">
       <div class="container position-relative d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
           <img src="assets/img/logoCP2.png" alt="" style="width: 40px; height: auto;">
           <h1 class="sitename">Cerdas Privat</h1>
-          <span>.</span>
         </a>
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="siswa-beranda.html" class="active">Beranda<br></a></li>
+            <li><a href="siswa-beranda.html">Beranda<br></a></li>
             <li><a href="siswa-guru.php">Guru</a></li>
             <li class="dropdown"><a href="#"><span>Kelas</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
@@ -92,125 +146,36 @@
       </div>
     </div>
   </header>
-  <main class="main">
-     <!-- Services Section -->
-     <section id="services" class="services section">
 
-        <!-- Section Title -->
-        <div class="container section-title" data-aos="fade-up">
-          <h2>Guru</h2>
-          <p>Silahkan pilih guru yang sesuai dengan kriteria kamu.</p>
-        </div><!-- End Section Title -->
-  
-        <div class="container">
-  <h1 class="mt-5 mb-4">Daftar Guru</h1>
-  <div class="row gy-4">
-    <?php
-    // Memasukkan koneksi ke database
-    include 'koneksi.php';
 
-    // Query SQL untuk mengambil data dari tabel Guru
-    $sql = "SELECT * FROM Guru";
-    $result = $conn->query($sql);
+<main class="container mt-5" style="padding-top: 100px;">
+  <h2>Kelas</h2>
+    <div class="row gy-4">
 
-    // Mengecek apakah ada hasil
-    if ($result->num_rows > 0) {
-      // Menampilkan setiap row data sebagai card
+      <?php
+      // Loop melalui setiap pendaftaran yang diterima untuk menampilkan detail siswa
       while ($row = $result->fetch_assoc()) {
-    ?>
-      <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="service-item position-relative border p-3 mb-4 rounded shadow-sm">
-          <div class="d-flex align-items-start">
-            <div class="profile-picture mr-3">
-              <img src="<?php echo $row['foto_profil']; ?>" alt="Profile Picture" style="width: 80px; height: 80px;">
-            </div>
-            <div class="profile-info">
-              <p class="mb-1"><strong>Nama:</strong> <?php echo $row['nama']; ?></p>
-              <p class="mb-1"><strong>Pengalaman Mengajar:</strong> <?php echo $row['pengalaman_mengajar']; ?> tahun</p>
-              <p class="mb-1"><strong>Mata Pelajaran:</strong> <?php echo $row['mata_pelajaran']; ?></p>
-              <p class="mb-1"><strong>Tingkat:</strong> <?php echo $row['level']; ?></p>
-              <p class="mb-1"><strong>Alamat:</strong> <?php echo $row['alamat']; ?></p>
-              <p class="mb-1"><strong>Tarif:</strong> Rp<?php echo number_format($row['tarif'], 0, ',', '.'); ?> /jam</p>
-            </div>
-          </div>
-          <div class="profile-description mt-3">
-            <p><?php echo $row['deskripsi']; ?></p>
-          </div>
-          <div class="text-right mt-3">
-            <!-- Tombol Daftar dengan atribut data-bs-toggle untuk memicu modal -->
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">Daftar</button>
-          </div>
-        </div>
+      ?>
+        <div class="col-md-12">
+  <div class="card p-3 shadow-sm d-flex align-items-center justify-content-between flex-md-row">
+    <div class="d-flex align-items-center">
+      <img src="assets/img/services.jpg" class="rounded-circle me-3" alt="Profile Picture" style="width: 60px; height: 60px; object-fit: cover;">
+      <div>
+        <p class="m-0"><strong><?php echo htmlspecialchars($row['nama']); ?></strong></p>
+        <p class="m-0">Mata Pelajaran: <?php echo htmlspecialchars($row['mata_pelajaran']); ?></p>
+        <p class="m-0">Tarif: <?php echo htmlspecialchars($row['tarif']); ?></p>
       </div>
-    <?php
-      }
-    } else {
-      echo "<p>Belum ada data guru tersedia.</p>";
-    }
-
-    // Menutup koneksi database
-    $conn->close();
-    ?>
+    </div>
+    <div class="d-flex">
+            <a class="btn btn-success me-2" href="siswa-detailkelas.php?id_guru=<?php echo $row['id_guru']; ?>&id_pendaftaran=<?php echo $row['id_pendaftaran']; ?>">Selengkapnya</a>
+      </div>
   </div>
 </div>
-  <main class="main">
-    <div class="class-container">
-        <div class="class-title">Kelasku</div>
-        <div class="active-class"><a href="statuspendafsis.html">Status Pendaftaran</a></div>
-      </div>
-        <table>
-            <thead>
-              <tr>
-                <th>No.</th>
-                <th>Mata Pelajaran</th>
-                <th>Senin</th>
-                <th>Selasa</th>
-                <th>Rabu</th>
-                <th>Kamis</th>
-                <th>Jumat</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Matematika</td>
-                <td>08:00 - 09:00</td>
-                <td>09:00 - 10:00</td>
-                <td>08:00 - 09:00</td>
-                <td>10:00 - 11:00</td>
-                <td>08:00 - 09:00</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Bahasa Indonesia</td>
-                <td>09:00 - 10:00</td>
-                <td>10:00 - 11:00</td>
-                <td>09:00 - 10:00</td>
-                <td>08:00 - 09:00</td>
-                <td>09:00 - 10:00</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>IPA</td>
-                <td>10:00 - 11:00</td>
-                <td>08:00 - 09:00</td>
-                <td>10:00 - 11:00</td>
-                <td>09:00 - 10:00</td>
-                <td>10:00 - 11:00</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Bahasa Inggris</td>
-                <td>11:00 - 12:00</td>
-                <td>11:00 - 12:00</td>
-                <td>11:00 - 12:00</td>
-                <td>11:00 - 12:00</td>
-                <td>11:00 - 12:00</td>
-              </tr>
-            </tbody>
-          </table>
+      <?php
+      }
+      ?>
+    </div>
   </main>
-  
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

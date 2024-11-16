@@ -20,9 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['role'] = $user['role'];
 
-            // Jika pengguna adalah siswa, ambil id_siswa dan simpan dalam sesi
             if ($_SESSION['role'] === 'Siswa') {
-                $siswa_query = "SELECT id_siswa FROM Siswa WHERE email = ?";
+                $siswa_query = "SELECT id_siswa, foto_profil FROM Siswa WHERE email = ?";
                 $siswa_stmt = $conn->prepare($siswa_query);
                 $siswa_stmt->bind_param("s", $email);
                 $siswa_stmt->execute();
@@ -30,24 +29,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 if ($siswa_result->num_rows > 0) {
                     $siswa = $siswa_result->fetch_assoc();
-                    $_SESSION['id_siswa'] = $siswa['id_siswa']; // Simpan id_siswa dalam sesi
+                    $_SESSION['id_siswa'] = $siswa['id_siswa'];
+                    $_SESSION['foto_profil'] = $siswa['foto_profil'] ?: 'default.jpg';
+                     // Use default if empty
                 }
-
                 $siswa_stmt->close();
                 header("Location: siswa-beranda.html");
                 exit();
             } elseif ($_SESSION['role'] === 'Guru') {
-                header("Location: guru-beranda.html");
+                $guru_query = "SELECT id_guru, foto_profil FROM Guru WHERE email = ?";
+                $guru_stmt = $conn->prepare($guru_query);
+                $guru_stmt->bind_param("s", $email);
+                $guru_stmt->execute();
+                $guru_result = $guru_stmt->get_result();
+
+                if ($guru_result->num_rows > 0) {
+                    $guru = $guru_result->fetch_assoc();
+                    $_SESSION['id_guru'] = $guru['id_guru'];
+                    $_SESSION['foto_profil'] = $guru['foto_profil'] ?: 'default.jpg'; // Use default if empty
+                }
+
+                $guru_stmt->close();
+                header("Location: guru-beranda.php");
                 exit();
             } elseif ($_SESSION['role'] === 'Admin') {
-                header("Location: admin_guru.html");
+                header("Location: admin-beranda.html");
                 exit();
             }
         } else {
-            echo "Password salah.";
+            $_SESSION['error'] = "Password salah.";
+            header("Location: login.php"); 
+            exit();
         }
     } else {
-        echo "Email tidak terdaftar.";
+        $_SESSION['error'] = "Email tidak terdaftar.";
+        header("Location: login.php"); 
+        exit();
     }
     $stmt->close();
     $conn->close();

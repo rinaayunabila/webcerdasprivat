@@ -83,51 +83,6 @@
     </div>
   </header>
 
-  <!-- <main class="profil-siswa">
-    <div class="form-container">
-      <h2 class="text-center mb-4">Ingin Belajar?</h2>
-      <p style="text-align: center">Ayo Daftar</p>
-      <form action="dbsiswa-daftarakun.php" method="post" enctype="multipart/form-data">
-        <div class="text-center">
-          <div class="mb-3">
-            <label for="profile-pic" class="form-label" style="text-align: left">Unggah Foto Profil</label>
-            <input class="form-control" type="file" id="profile-pic" name="profile-pic" accept="image/*" onchange="previewImage(event)" required>
-            <img id="imagePreview" class="profile-pic" src="#" alt="Preview Gambar" style="display:none;">
-          </div>
-        </div>
-        <div class="mb-3">
-          <label for="name" class="form-label">Nama</label>
-          <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama" required>
-        </div>
-        <div class="mb-3">
-          <label for="sekolah" class="form-label">Sekolah</label>
-          <input type="text" class="form-control" id="sekolah" name="sekolah" placeholder="Masukkan nama sekolah" required>
-        </div>
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input type="text" class="form-control" id="email" name="email" placeholder="Masukkan email" required>
-        </div>
-        <div class="mb-3">
-          <label for="parent-name" class="form-label">Nama Orang Tua</label>
-          <input type="text" class="form-control" id="parent-name" name="parent-name" placeholder="Masukkan nama orang tua" required>
-        </div>
-        <div class="mb-3">
-          <label for="address" class="form-label">Alamat</label>
-          <input type="text" class="form-control" id="address" name="address" placeholder="Masukkan alamat" required>
-        </div>
-        <div class="mb-3">
-          <label for="phone" class="form-label">No.Telepon</label>
-          <input type="number" class="form-control" id="phone" name="phone" placeholder="Masukkan nomor telepon" required>
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Buat Kata Sandi</label>
-          <input type="password" class="form-control" id="password" name="password" placeholder="Buat kata sandi" required minlength="8">
-        </div>
-        <button type="submit" class="btn btn-primary w-100" style="background-color: #222645;">Daftar</button>
-      </form>
-    </div>
-  </main> -->
-
   <main class="profil-siswa">
     <div class="form-container">
         <h2 class="text-center mb-4">Ingin Belajar?</h2>

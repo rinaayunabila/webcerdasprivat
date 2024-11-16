@@ -1,3 +1,33 @@
+<?php
+session_start();
+include 'koneksi.php';
+
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Guru') {
+    header("Location: login.php");
+    exit();
+}
+
+// Mengambil data guru berdasarkan id user yang login
+$user_id = $_SESSION['user_id'];
+$query = "SELECT g.nama, g.pendidikan, g.mata_pelajaran, g.pengalaman_mengajar, g.level, g.tarif, g.deskripsi, g.alamat, g.email, g.no_hp, g.foto_profil
+          FROM Guru g
+          JOIN Users u ON g.email = u.email
+          WHERE u.id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $guru = $result->fetch_assoc();
+} else {
+    echo "Data Guru tidak ditemukan.";
+    exit();
+}
+$stmt->close();
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,28 +78,28 @@
     .container ul li {
       text-align: justify;
     }
+
   </style>
 </head>
 
 <body class="index-page">
-
   <header id="header" class="header fixed-top">
-    <div class="branding d-flex align-items-cente">
-      <div class="container position-relative d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
-          <img src="assets/img/logoCP2.png" alt="" style="width: 40px; height: auto;">
-          <h3 class="sitename" style="font-weight: bold;">Cerdas Privat</h3> 
-        </a>
-
+  <div class="branding d-flex align-items-center">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="assets/img/logoCP2.png" alt="" style="width: 40px; height: auto;">
+        <h1 class="sitename">Cerdas Privat</h1>
+      </a>
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="berandaguru.html" class="active">Beranda<br></a></li>
+            <li><a href="guru-beranda.php" class="active">Beranda<br></a></li>
             <li><a href="guru_siswa.php">Siswa</a></li>
-            <li><a href="guru_pendaftaransiswa.html">Pendaftaran</a></li>
-            <li><a href="guru_pembayaran.html">Pembayaran</a></li>
-            <li><a href="guru_profillguru.html">
-              <img src="assets/img/rw2.jpg" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
-            </a></li>
+            <li><a href="guru_pendaftaransiswa.php">Pendaftaran</a></li>
+            <li><a href="guru_pembayaran.php">Pembayaran</a></li>
+            <li>
+              <a href="guru_profillguru.php">
+                <img src="<?= htmlspecialchars($guru['foto_profil']); ?>" alt="User Profile" class="profile-img rounded-circle" >
+              </a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
@@ -83,8 +113,8 @@
      <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
        <div class="row gy-5 justify-content-between">
          <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
-           <h2><span>Welcome to </span><span class="accent">Cerdas Privat</span></h2>
-           <p>Selamat datang, bersama kami, belajar menjadi lebih seru dan berprestasi</p></br></br>
+           <h2><span>Hello </span><span class="accent">Cerdas Privat</span></h2>
+           <p>Nabila</p></br></br>
            <div class="d-flex">
              <a href="daftarakun.html" class="btn-get-started ">Daftar</a>
              <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Tonton Vidio</span></a>

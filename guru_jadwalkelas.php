@@ -104,7 +104,7 @@ h2 {
   color: #6c757d;
 }
 
-/Siswa/
+/* siswa */
 .class-container {
   width: 1200px;
   padding: 5px;
@@ -120,24 +120,24 @@ h2 {
 </head>
 
 <body class="index-page">
-
-  <header id="header" class="header fixed-top">
-    <div class="branding d-flex align-items-center">
-      <div class="container d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
-          <img src="assets/img/logoCP2.png" alt="" style="width: 40px; height: auto;">
-          <h1 class="sitename mb-0">Cerdas Privat</h1>
-        </a>
+<header id="header" class="header fixed-top">
+  <div class="branding d-flex align-items-center">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="assets/img/logoCP2.png" alt="" style="width: 40px; height: auto;">
+        <h1 class="sitename">Cerdas Privat</h1>
+      </a>
         <nav id="navmenu" class="navmenu">
-          <ul class="d-flex mb-0">
-            <li><a href="berandaguru.html" >Beranda<br></a></li>
-            <li><a href="guru_siswa.html" class="active">Siswa</a></li>
-            <li><a href="guru_pendaftaransiswa.html">Pendaftaran</a></li>
-            <li><a href="guru_pembayaran.html">Pembayaran</a></li>
-            <li><a href="guru_profillguru.html">
-              <img src="assets/img/image cerdas privat/rw2.jpg" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
+          <ul>
+            <li><a href="guru-beranda.php" >Beranda<br></a></li>
+            <li><a href="guru_siswa.php" class="active">Siswa</a></li>
+            <li><a href="guru_pendaftaransiswa.php">Pendaftaran</a></li>
+            <li><a href="guru_pembayaran.php">Pembayaran</a></li>
+            <li><a href="guru_profillguru.php">
+              <img src="assets/img/rw2.jpg" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
             </a></li>
           </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
       </div>
     </div>
@@ -145,16 +145,17 @@ h2 {
 
   <!-- Content Section -->
   <section style="padding-top: 100px;"> <!-- Sesuaikan padding-top dengan tinggi header -->
-    <div class="class-container d-flex align-items-center" style="padding-left: 20px;">
-      <a href="Guru-Siswa.html" class="me-3" style="font-weight: bold; text-decoration: none">
-          Kelasku
-      </a>
-      <span style="color: #222645;">|</span>
-      <a href="Guru-Jadwal Kelas.html" class="ms-3" style="font-weight: bold; text-decoration: none;">
-          Jadwal Kelas
-      </a>
-    </div>
-  </section>
+  <div class="class-container d-flex align-items-center" style="padding-left: 20px;">
+    <a href="guru_siswa.php" class="me-3" style="font-weight: bold; text-decoration: none">
+        Siswa
+    </a>
+    <span style="color: #222645;" >|</span>
+    <a href="guru_jadwalkelas.php" class="ms-3" style="font-weight: bold; text-decoration: none;">
+        Jadwal Kelas
+    </a>
+    <span style="color: #222645; padding-left: 20px;"> |</span>
+  </div>
+</section>
 
   <!-- Search bar -->
   <main id="main" class="main">

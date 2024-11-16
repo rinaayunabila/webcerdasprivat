@@ -31,104 +31,82 @@
     .profile-info {
         font-weight: bold;
     }
+    
   </style>
 </head>
 
 <body class="index-page">
 <header id="header" class="header fixed-top">
-  <div class="branding d-flex align-items-center">
-    <div class="container position-relative d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="assets/img/logoCP2.png" alt="" style="width: 40px; height: auto;">
-        <h1 class="sitename">Cerdas Privat</h1>
-        <span>.</span>
-      </a>
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a href="siswa-beranda.html" class="active">Beranda<br></a></li>
-          <li><a href="siswa-guru.php">Guru</a></li>
-          <li class="dropdown"><a href="#"><span>Kelas</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-            <ul>
-              <li><a href="siswa-jadwal.php">Kelas Aktif</a></li>
-              <li><a href="siswa-statuspendaftaran.php">Status Pendaftaran</a></li>
-            </ul>
-          </li>
-          <li><a href="siswa-profil.php">
-              <img src="assets/img/services.jpg" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
-            </a></li>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
+    <div class="branding d-flex align-items-center">
+      <div class="container position-relative d-flex align-items-center justify-content-between">
+        <a href="index.html" class="logo d-flex align-items-center">
+          <img src="assets/img/logoCP2.png" alt="" style="width: 40px; height: auto;">
+          <h1 class="sitename">Cerdas Privat</h1>
+        </a>
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="siswa-beranda.html" >Beranda<br></a></li>
+            <li><a href="siswa-guru.php"class="active">Guru</a></li>
+            <li class="dropdown"><a href="#"><span>Kelas</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a href="siswa-jadwal.php">Kelas Aktif</a></li>
+                <li><a href="siswa-statuspendaftaran.php">Status Pendaftaran</a></li>
+              </ul>
+            </li>
+            <li><a href="siswa-profil.php">
+                <img src="assets/img/services.jpg" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
+              </a></li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
+
 <main class="main">
   <section id="services" class="services section">
     <div class="container section-title" data-aos="fade-up">
       <h2>Guru</h2>
       <p>Silahkan pilih guru yang sesuai dengan kriteria kamu.</p>
     </div>
+    <section id="blog-author" class="blog-author section">
+  <div class="container">
+    <div class="row gy-4">
+      <?php
+      include 'koneksi.php';
+      $sql = "SELECT * FROM Guru";
+      $result = $conn->query($sql);
 
-    <div class="container">
-      <div class="row gy-4">
-        <?php
-        include 'koneksi.php';
-        $sql = "SELECT * FROM Guru";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
+      if ($result->num_rows > 0) {
           while ($row = $result->fetch_assoc()) {
-        ?>
-          <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-item position-relative border p-3 mb-4 rounded shadow-sm">
-              <div class="d-flex align-items-start">
-                <div class="profile-picture mr-3">
-                  <img src="<?php echo $row['foto_profil']; ?>" alt="Profile Picture">
-                </div>
-                <div class="profile-info">
-                  <p><strong>Nama:</strong> <?php echo $row['nama']; ?></p>
-                  <p><strong>Pengalaman Mengajar:</strong> <?php echo $row['pengalaman_mengajar']; ?> tahun</p>
-                  <p><strong>Mata Pelajaran:</strong> <?php echo $row['mata_pelajaran']; ?></p>
-                  <p><strong>Tingkat:</strong> <?php echo $row['level']; ?></p>
-                  <p><strong>Alamat:</strong> <?php echo $row['alamat']; ?></p>
-                  <p><strong>Tarif:</strong> Rp<?php echo number_format($row['tarif'], 0, ',', '.'); ?> /jam</p>
+              $fotoProfil = !empty($row['foto_profil']) ? $row['foto_profil'] : 'assets/img/blog/default-author.jpg';
+              ?>
+              <!-- Mulai elemen card guru -->
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="author-container d-flex align-items-start border p-3 mb-4 rounded shadow-sm">
+                  <img src="<?php echo $fotoProfil; ?>" class="rounded-circle flex-shrink-0 mr-3" alt="Profile Picture" style="width: 100px; height: 100px; object-fit: cover;">
+                  <div>
+                    <h4 style="color:#222645;"><?php echo htmlspecialchars($row['nama']); ?></h4>
+                    <p><?php echo htmlspecialchars($row['deskripsi']); ?></p>
+                    <p style="color: #222645;"><strong>Mata Pelajaran:</strong> <?php echo htmlspecialchars($row['mata_pelajaran']); ?></p>
+                    <p><strong>Tarif:</strong> Rp<?php echo number_format($row['tarif'], 0, ',', '.'); ?> /jam</p>
+                    <div class="mt-3">
+                      <a href="siswa-detailguru.php?id_guru=<?php echo $row['id_guru']; ?>" class="btn btn-primary">Selengkapnya</a>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="text-right mt-3">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal" data-guru-id="<?php echo $row['id_guru']; ?>">Daftar</button>
-              </div>
-            </div>
-          </div>
-        <?php
+              <!-- Akhir elemen card guru -->
+              <?php
           }
-        } else {
+      } else {
           echo "<p>Belum ada data guru tersedia.</p>";
-        }
-        $conn->close();
-        ?>
-      </div>
+      }
+      $conn->close();
+      ?>
     </div>
-
-    <!-- Modal Konfirmasi -->
-    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="confirmModalLabel">Konfirmasi Pendaftaran</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            Apakah Anda yakin ingin mendaftar?
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
-            <button type="button" class="btn btn-primary" id="confirm-register">Iya</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-  </section>
+  </div>
+</section>
 </main>
 
 <footer id="footer" class="footer accent-background">

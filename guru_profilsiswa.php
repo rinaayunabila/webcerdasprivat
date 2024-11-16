@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Guru-Profil Saya</title>
+  <title>Guru-Profil Siswa</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -27,13 +27,6 @@
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Impact
-  * Template URL: https://bootstrapmade.com/impact-bootstrap-business-website-template/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
   <style>
     profil-siswa {
       font-family: Arial, sans-serif;
@@ -58,27 +51,25 @@
       object-fit: cover;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     }
-
   </style>
 </head>
 
 <body class="index-page">
 
-  <header id="header" class="header fixed-top">
-    <div class="branding d-flex align-items-cente">
-      <div class="container position-relative d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
-          <img src="assets/img/logoCP2.png" alt="" style="width: 40px; height: auto;">
-          <h1 class="sitename">Cerdas Privat</h1> 
-        </a>
-
+<header id="header" class="header fixed-top">
+  <div class="branding d-flex align-items-center">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="assets/img/logoCP2.png" alt="" style="width: 40px; height: auto;">
+        <h1 class="sitename">Cerdas Privat</h1>
+      </a>
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="berandaguru.html" >Beranda<br></a></li>
-            <li><a href="guru_siswa.html">Siswa</a></li>
-            <li><a href="guru_pendaftaransiswa.html">Pendaftaran</a></li>
-            <li><a href="guru_pembayaran.html">Pembayaran</a></li>
-            <li><a href="guru_profillguru.html" class="active">
+            <li><a href="guru-beranda.php" >Beranda<br></a></li>
+            <li><a href="guru_siswa.php">Siswa</a></li>
+            <li><a href="guru_pendaftaransiswa.php">Pendaftaran</a></li>
+            <li><a href="guru_pembayaran.php">Pembayaran</a></li>
+            <li><a href="guru_profillguru.php">
               <img src="assets/img/rw2.jpg" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
             </a></li>
           </ul>
@@ -90,63 +81,54 @@
 
   <main class="profil-siswa">
     <div class="form-container">
-      <h2 class="text-center mb-4; underline-heading">Profil Saya</h2>
-        <!-- Foto Profil -->
-        <div class="text-center">
-          <img src="assets/img/services.jpg" alt="Foto Profil" class="profile-pic" id="profile-pic-preview">
-          <div class="mb-3">
-            <label for="profile-pic" class="form-label">Unggah Foto Profil</label>
-            <input class="form-control" type="file" id="profile-pic" name="profile-pic" accept="image/*" onchange="previewImage(event)">
-          </div>
-        </div>
-      
+      <h2 class="text-center mb-4; underline-heading">Profil Siswa</h2>
         <!-- Form Profil -->
         <form action="update_profile.php" method="post" enctype="multipart/form-data">
-          <div class="mb-3">
-            <label for="name" class="form-label">Nama</label>
-            <input type="text" class="form-control" id="name" placeholder="Nabila S.Pd">
-          </div>
-
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="nabila77@gmail.com">
-          </div>
-
-          <div class="mb-3">
-            <label for="qualification" class="form-label">Kualifikasi</label>
-            <input type="text" class="form-control" id="qualification" placeholder="Halo, saya Nabila lulusan Universitas Riau, memiliki keahlian mengajar yang baik dan senang berbagi ilmu dengan teman 
-            teman.">
-          </div>
-
-          <div class="mb-3">
-            <label for="experience" class="form-label">Pengalaman Mengajar</label>
-            <input type="text" class="form-control" id="experience" placeholder="1 Tahun">
-          </div>
-
-          <div class="mb-3">
-            <label for="subject" class="form-label">Mata Pelajaran</label>
-            <input type="text" class="form-control" id="subject" placeholder="Masukkan mata pelajaran">
-          </div>
-
-          <div class="mb-3">
-            <label for="phone" class="form-label">No.Telepon</label>
-            <input type="text" class="form-control" id="phone" placeholder="08765432345">
-          </div>
-
-          <div class="mb-3">
-            <label for="address" class="form-label">Alamat</label>
-            <input type="text" class="form-control" id="address" placeholder="Jln. Palangkaraya 32 A, Pekanbaru">
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Kata Sandi</label>
-            <input type="password" class="form-control" id="password" placeholder="Ubah Kata Sandi">
-          </div>
+          <!-- Foto Profil -->
           <div class="text-center">
-            <button type="submit" class="btn btn-primary">Update Profil</button>
+            <img src="assets/img/services.jpg" alt="Foto Profil" class="profile-pic" id="profile-pic-preview">
+            <!-- Input file untuk memilih gambar telah dihapus -->
           </div>
+        
+          <!-- Form Profil -->
+          <div class="mb-3">
+            <label for="name" class="form-label" style="color: rgb(100, 183, 255);">Nama Lengkap</label>
+            <span class="form-control-plaintext" id="name">Septania Daniati</span>
+          </div>
+        
+          <div class="mb-3">
+            <label for="email" class="form-label" style="color: rgb(100, 183, 255);">Email</label>
+            <span class="form-control-plaintext" id="email">septa890@gmail.com</span>
+          </div>
+        
+          <div class="mb-3">
+            <label for="school" class="form-label" style="color: rgb(100, 183, 255);">Sekolah</label>
+            <span class="form-control-plaintext" id="school">SD Negeri 2 Pekanbaru</span>
+          </div>
+        
+          <div class="mb-3">
+            <label for="grade" class="form-label" style="color: rgb(100, 183, 255);">Kelas</label>
+            <span class="form-control-plaintext" id="grade">5</span>
+          </div>
+        
+          <div class="mb-3">
+            <label for="parent_name" class="form-label" style="color: rgb(100, 183, 255);">Nama Orang Tua</label>
+            <span class="form-control-plaintext" id="parent_name">Rina Ayu</span>
+          </div>
+        
+          <div class="mb-3">
+            <label for="phone" class="form-label" style="color: rgb(100, 183, 255);">No. Telepon</label>
+            <span class="form-control-plaintext" id="phone">081234567890</span>
+          </div>
+        
+          <div class="mb-3">
+            <label for="address" class="form-label" style="color: rgb(100, 183, 255);">Alamat</label>
+            <span class="form-control-plaintext" id="address">Jl. Bangau Sakti</span>
+          </div>
+        
         </form>
-      </div>
-      
+    </div>
+           
   </main>
   <script>
     // Fungsi untuk menampilkan preview foto profil yang diupload
