@@ -1,5 +1,23 @@
 <?php
+session_start();
 include 'koneksi.php';
+// Mengambil data siswa berdasarkan id user yang login
+$user_id = $_SESSION['user_id'];
+$query = "SELECT s.nama, s.sekolah, s.email, s.nama_orang_tua, s.alamat, s.no_hp, s.foto_profil
+          FROM Siswa s
+          JOIN Users u ON s.email = u.email
+          WHERE u.id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $siswa = $result->fetch_assoc();
+} else {
+    echo "Data siswa tidak ditemukan.";
+    exit();
+}
 
 // Get the teacher ID and registration ID from the URL
 if (isset($_GET['id_guru']) && isset($_GET['id_pendaftaran'])) {
@@ -24,6 +42,7 @@ if (isset($_GET['id_guru']) && isset($_GET['id_pendaftaran'])) {
     
     $stmt->close();
     $stmt_pendaftaran->close();
+
 } else {
     echo "Data tidak ditemukan.";
     exit;
@@ -120,7 +139,7 @@ if (isset($_GET['id_guru']) && isset($_GET['id_pendaftaran'])) {
         </a>
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="siswa-beranda.html">Beranda<br></a></li>
+            <li><a href="siswa-beranda.php">Beranda<br></a></li>
             <li><a href="siswa-guru.php">Guru</a></li>
             <li class="dropdown"><a href="#"><span>Kelas</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
@@ -129,7 +148,7 @@ if (isset($_GET['id_guru']) && isset($_GET['id_pendaftaran'])) {
               </ul>
             </li>
             <li><a href="siswa-profil.php">
-                <img src="assets/img/services.jpg" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
+                <img src="<?= htmlspecialchars(string: $siswa['foto_profil']); ?>" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
               </a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -161,6 +180,8 @@ if (isset($_GET['id_guru']) && isset($_GET['id_pendaftaran'])) {
                 <li><a href="#">Pendidikan : <?php echo $guru['pendidikan']; ?></a></li>
                 <li><a href="#">pengalaman Mengajar : <?php echo $guru['pengalaman_mengajar']; ?> Tahun</a></li>
                 <li><a href="#">Alamat : <?php echo $guru['alamat']; ?></a></li>
+                <li><a href="#">No HP : <?php echo $guru['no_hp']; ?></a></li>
+                <li><a href="#">Email : <?php echo $guru['email']; ?></a></li>
                 </ul>
                 </div> </br><!--/Tags Widget -->
                <!-- End post content -->

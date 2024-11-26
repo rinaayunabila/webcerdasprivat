@@ -3,11 +3,16 @@ include 'koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Mendapatkan data dari form
-    $id_pendaftaran = $_POST['id_pendaftaran'];
-    $jumlah = $_POST['nominal'];
+    $id_pendaftaran = $_POST['id_pendaftaran'] ?? null;
+    $jumlah = $_POST['nominal'] ?? null;
     $tanggal_pembayaran = date('Y-m-d');
 
-    // Periksa apakah id_pendaftaran ada di tabel Pendaftaran
+    // Debugging log untuk memastikan data diterima dengan benar
+    if (empty($id_pendaftaran) || empty($jumlah)) {
+        die("Data tidak lengkap. Pastikan semua field diisi.");
+    }
+
+    // Validasi id_pendaftaran di tabel Pendaftaran
     $sql_check = "SELECT id_pendaftaran FROM Pendaftaran WHERE id_pendaftaran = ?";
     $stmt_check = $conn->prepare($sql_check);
     $stmt_check->bind_param("i", $id_pendaftaran);
@@ -20,32 +25,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $file_name = basename($_FILES["bukti_transfer"]["name"]);
         $target_file = $target_dir . $file_name;
 
-        if (move_uploaded_file($_FILES["bukti_transfer"]["tmp_name"], $target_file)) {
-            // Jika file berhasil diupload, simpan data ke database
-            $sql = "INSERT INTO Pembayaran (id_pendaftaran, jumlah, foto_bukti, status_pembayaran, tanggal_pembayaran) 
-                    VALUES (?, ?, ?, 'Pending', ?)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("iiss", $id_pendaftaran, $jumlah, $target_file, $tanggal_pembayaran);
+        // Validasi dan upload file
+        if ($_FILES["bukti_transfer"]["error"] === UPLOAD_ERR_OK) {
+            if (move_uploaded_file($_FILES["bukti_transfer"]["tmp_name"], $target_file)) {
+                // Simpan data pembayaran ke database
+                $sql = "INSERT INTO Pembayaran (id_pendaftaran, jumlah, foto_bukti, status_pembayaran, tanggal_pembayaran) 
+                        VALUES (?, ?, ?, 'Pending', ?)";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("iiss", $id_pendaftaran, $jumlah, $target_file, $tanggal_pembayaran);
 
-            if ($stmt->execute()) {
-                echo "Pembayaran berhasil disimpan!";
-                // Redirect atau pesan sukses
-                header("Location: siswa-detailkelas.php"); // Ganti dengan halaman yang sesuai
-                exit;
+                if ($stmt->execute()) {
+                    // Berhasil
+                    header("Location: siswa-detailkelas.php?status=sukses");
+                    exit;
+                } else {
+                    // Kesalahan eksekusi query
+                    die("Terjadi kesalahan saat menyimpan pembayaran: " . $stmt->error);
+                }
             } else {
-                echo "Terjadi kesalahan: " . $stmt->error;
+                die("Gagal mengupload bukti transfer. Pastikan folder 'uploads/' memiliki izin tulis.");
             }
-            $stmt->close();
         } else {
-            echo "Gagal mengupload bukti transfer.";
+            die("Kesalahan saat mengupload file: " . $_FILES["bukti_transfer"]["error"]);
         }
     } else {
-        echo "Error: id_pendaftaran tidak ditemukan di tabel Pendaftaran.";
+        die("Error: id_pendaftaran tidak ditemukan di tabel Pendaftaran.");
     }
 
+    // Tutup statement dan koneksi
     $stmt_check->close();
     $conn->close();
 } else {
-    echo "Metode tidak valid.";
+    die("Metode tidak valid.");
 }
 ?>

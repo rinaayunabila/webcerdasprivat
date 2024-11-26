@@ -101,7 +101,7 @@ $conn->close();
             <li><a href="guru_pendaftaransiswa.php">Pendaftaran</a></li>
             <li><a href="guru_pembayaran.php">Pembayaran</a></li>
             <li><a href="guru_profillguru.php">
-              <img src="assets/img/rw2.jpg" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
+              <img src="<?= htmlspecialchars($guru['foto_profil']); ?>"alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
             </a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -164,9 +164,9 @@ $conn->close();
             <label for="phone" class="form-label">No.Telepon</label>
             <input type="text" class="form-control" id="phone" value="<?= htmlspecialchars($guru['no_hp']); ?>" readonly>
           </div>
-          <div class="text-center">
-            <button type="submit" class="btn btn-primary">Update Profil</button>
-          </div>
+          <div class="text-center" action="logout.php" method="POST">
+          <button type="submit" class="btn btn-primary" onclick="return confirm('Apakah Anda yakin ingin logout?');">Logout</button>
+      </div>
         </form>
       </div>
   </main>

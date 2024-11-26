@@ -47,7 +47,7 @@
             <li><a href="guru_pendaftaransiswa.php">Pendaftaran</a></li>
             <li><a href="guru_pembayaran.php">Pembayaran</a></li>
             <li><a href="guru_profillguru.php">
-              <img src="assets/img/rw2.jpg" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
+              <img src="<?= htmlspecialchars(string: $siswa['foto_profil']); ?>" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
             </a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>

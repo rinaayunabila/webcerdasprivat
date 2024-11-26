@@ -74,7 +74,7 @@ $conn->close();
         </a>
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="siswa-beranda.html">Beranda<br></a></li>
+            <li><a href="siswa-beranda.php">Beranda<br></a></li>
             <li><a href="siswa-guru.php">Guru</a></li>
             <li class="dropdown"><a href="#"><span>Kelas</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
@@ -83,7 +83,7 @@ $conn->close();
               </ul>
             </li>
             <li><a href="siswa-profil.php">
-                <img src="assets/img/services.jpg" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
+                <img src="<?= htmlspecialchars(string: $siswa['foto_profil']); ?>" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
               </a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -129,8 +129,8 @@ $conn->close();
         <textarea class="form-control" id="address" rows="3" readonly><?= htmlspecialchars($siswa['alamat']); ?></textarea>
       </div>
 
-      <div class="text-center">
-          <button type="submit" class="btn btn-primary">Update Profil</button>
+      <div class="text-center" action="logout.php" method="POST">
+          <button type="submit" class="btn btn-primary" onclick="return confirm('Apakah Anda yakin ingin logout?');">Logout</button>
       </div>
     </form>
   </div>

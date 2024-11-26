@@ -1,3 +1,32 @@
+<?php
+session_start();
+include 'koneksi.php';
+
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Siswa') {
+    header("Location: login.php");
+    exit();
+}
+
+// Mengambil data siswa berdasarkan id user yang login
+$user_id = $_SESSION['user_id'];
+$query = "SELECT s.nama, s.sekolah, s.email, s.nama_orang_tua, s.alamat, s.no_hp, s.foto_profil
+          FROM Siswa s
+          JOIN Users u ON s.email = u.email
+          WHERE u.id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $siswa = $result->fetch_assoc();
+} else {
+    echo "Data siswa tidak ditemukan.";
+    exit();
+}
+$stmt->close();
+$conn->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +74,7 @@
         </a>
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="siswa-beranda.html" >Beranda<br></a></li>
+            <li><a href="siswa-beranda.php" >Beranda<br></a></li>
             <li><a href="siswa-guru.php"class="active">Guru</a></li>
             <li class="dropdown"><a href="#"><span>Kelas</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
@@ -54,7 +83,7 @@
               </ul>
             </li>
             <li><a href="siswa-profil.php">
-                <img src="assets/img/services.jpg" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
+                <img src="<?= htmlspecialchars(string: $siswa['foto_profil']); ?>" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
               </a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>

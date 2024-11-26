@@ -6,6 +6,23 @@ if (!isset($_SESSION['id_guru'])) {
     header('Location: login.php'); // Redirect if not logged in
     exit();
 }
+// Mengambil data guru berdasarkan id user yang login
+$user_id = $_SESSION['user_id'];
+$query = "SELECT g.nama, g.pendidikan, g.mata_pelajaran, g.pengalaman_mengajar, g.level, g.tarif, g.deskripsi, g.alamat, g.email, g.no_hp, g.foto_profil
+          FROM Guru g
+          JOIN Users u ON g.email = u.email
+          WHERE u.id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $guru = $result->fetch_assoc();
+} else {
+    echo "Data Guru tidak ditemukan.";
+    exit();
+}
 
 $id_guru = $_SESSION['id_guru']; // Get the logged-in teacher's ID
 
@@ -83,7 +100,7 @@ if (!$result) {
             <li><a href="guru_pendaftaransiswa.php">Pendaftaran</a></li>
             <li><a href="guru_pembayaran.php" class="active">Pembayaran</a></li>
             <li><a href="guru_profillguru.php">
-              <img src="assets/img/rw2.jpg" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
+              <img src="<?= htmlspecialchars($guru['foto_profil']); ?>" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
             </a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -97,9 +114,7 @@ if (!$result) {
       <div class="container">  
         <div class="d-flex justify-content-between mb-3 align-items-center">
           <h2>Informasi Pembayaran</h2>
-          <div class="d-flex">
-            <input type="text" class="form-control me-2" placeholder="Search..." style="width: 200px; height: 40px;">
-          </div>
+          
         </div>  
 
         <div>

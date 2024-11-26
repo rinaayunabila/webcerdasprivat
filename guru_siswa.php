@@ -4,7 +4,23 @@ session_start();
 
 // Include file koneksi
 include('koneksi.php');
+// Mengambil data guru berdasarkan id user yang login
+$user_id = $_SESSION['user_id'];
+$query = "SELECT g.nama, g.pendidikan, g.mata_pelajaran, g.pengalaman_mengajar, g.level, g.tarif, g.deskripsi, g.alamat, g.email, g.no_hp, g.foto_profil
+          FROM Guru g
+          JOIN Users u ON g.email = u.email
+          WHERE u.id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
+if ($result->num_rows > 0) {
+    $guru = $result->fetch_assoc();
+} else {
+    echo "Data Guru tidak ditemukan.";
+    exit();
+}
 // Dapatkan id_guru dari akun yang sedang login
 $id_guru = $_SESSION['id_guru']; // Pastikan id_guru disimpan dalam sesi login
 
@@ -157,28 +173,14 @@ h2 {
             <li><a href="guru_pendaftaransiswa.php">Pendaftaran</a></li>
             <li><a href="guru_pembayaran.php">Pembayaran</a></li>
             <li><a href="guru_profillguru.php">
-              <img src="assets/img/rw2.jpg" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
+              <img src="<?= htmlspecialchars($guru['foto_profil']); ?>" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
             </a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
       </div>
     </div>
-  </header>
-
-<!-- Content Section -->
-<section style="padding-top: 100px;"> <!-- Sesuaikan padding-top dengan tinggi header -->
-  <div class="class-container d-flex align-items-center" style="padding-left: 20px;">
-    <a href="guru_siswa.php" class="me-3" style="font-weight: bold; text-decoration: none">
-        Siswa
-    </a>
-    <span style="color: #222645;" >|</span>
-    <a href="guru_jadwalkelas.php" class="ms-3" style="font-weight: bold; text-decoration: none;">
-        Jadwal Kelas
-    </a>
-  </div>
-</section>
-
+  </header> </br> </br></br>
 
 <main class="container mt-5">
     <h2>Siswa yang Diterima</h2>

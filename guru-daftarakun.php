@@ -61,7 +61,7 @@
     <div class="branding d-flex align-items-cente">
       <div class="container position-relative d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
-          <img src="assets/img/logoCP2.png" alt="" style="width: 40px; height: auto;">
+          <img src="<?= htmlspecialchars($guru['foto_profil']); ?>" alt="" style="width: 40px; height: auto;">
           <h1 class="sitename">Cerdas Privat</h1>
         </a>
 

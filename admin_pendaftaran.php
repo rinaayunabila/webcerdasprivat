@@ -76,52 +76,66 @@
                     </button>
                 </div>
             </div><br><br>
-              <div class="container">
-                <table id="table" class="table table-striped table-bordered" style="width:100%">
-                  <thead> 
-                    <tr>
-                      <th>No</th>
+            <div class="container">
+              <table id="table" class="table table-striped table-bordered" style="width:100%">
+                <thead> 
+                  <tr>
+                    <th>No</th>
                       <th>Tanggal Pendaftaran</th>
                       <th>Nama Siswa</th>
                       <th>Nama Guru</th>
                       <th>Mata Pelajaran</th>
                       <th>Status</th>
-                      <th>Aksi</th> <!-- Kolom Aksi -->
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>12-10-2024</td>
-                      <td>Ayuna</td>
-                      <td>Miss Fitri</td>
-                      <td>Bahasa Inggris</td>
-                      <td>Diproses</td>
-                      <td>
-                        <div class="d-flex">
-                          <button class="btn btn-warning btn-custom me-2"><i class="bi bi-pencil"></i></button> <!-- Tombol Edit -->
-                          <button class="btn btn-danger btn-custom"><i class="bi bi-trash"></i></button> <!-- Tombol Delete -->
-                        </div>
-                      </td>
-                    </tr>   
-                    <tr>
-                        <td>1</td>
-                        <td>12-10-2024</td>
-                        <td>Ayuna</td>
-                        <td>Miss Fitri</td>
-                        <td>Bahasa Inggris</td>
-                        <td>Diproses</td>
-                        <td>
-                          <div class="d-flex">
-                            <button class="btn btn-warning btn-custom me-2"><i class="bi bi-pencil"></i></button> <!-- Tombol Edit -->
-                            <button class="btn btn-danger btn-custom"><i class="bi bi-trash"></i></button> <!-- Tombol Delete -->
-                          </div>
-                        </td>
-                      </tr>   
-                    <!-- Tambahkan baris lain sesuai kebutuhan -->
-                  </tbody>
-                </table>
-              </div>
+                      <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <?php
+                include 'koneksi.php'; // Menghubungkan ke database
+
+                $query = "
+                    SELECT 
+                        p.id_pendaftaran, 
+                        p.tanggal_pendaftaran, 
+                        p.status, 
+                        s.nama AS nama_siswa, 
+                        g.nama AS nama_guru, 
+                        g.mata_pelajaran
+                    FROM 
+                        Pendaftaran p
+                    JOIN 
+                        Siswa s ON p.id_siswa = s.id_siswa
+                    JOIN 
+                        Guru g ON p.id_guru = g.id_guru";
+
+                $result = mysqli_query($conn, $query);
+
+                if (mysqli_num_rows($result) > 0) {
+                    $no = 1;
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<tr>";
+                        echo "<td>" . $no++ . "</td>";
+                        echo "<td>" . $row['tanggal_pendaftaran'] . "</td>";
+                        echo "<td>" . $row['nama_siswa'] . "</td>";
+                        echo "<td>" . $row['nama_guru'] . "</td>";
+                        echo "<td>" . $row['mata_pelajaran'] . "</td>";
+                        echo "<td>" . $row['status'] . "</td>";
+                        echo "<td>
+                                <div class='d-flex'>
+                                    <button class='btn btn-danger btn-custom'><i class='bi bi-trash'></i></button>
+                                </div>
+                              </td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='7' class='text-center'>Tidak ada data yang tersedia</td></tr>";
+                }
+
+                mysqli_close($conn); // Tutup koneksi
+                ?>
+                </tbody>
+              </table>
+            </div>
             </div>
           </section>
         </div>

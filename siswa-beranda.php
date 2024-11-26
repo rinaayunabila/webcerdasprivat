@@ -1,3 +1,32 @@
+<?php
+session_start();
+include 'koneksi.php';
+
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Siswa') {
+    header("Location: login.php");
+    exit();
+}
+
+// Mengambil data siswa berdasarkan id user yang login
+$user_id = $_SESSION['user_id'];
+$query = "SELECT s.nama, s.sekolah, s.email, s.nama_orang_tua, s.alamat, s.no_hp, s.foto_profil
+          FROM Siswa s
+          JOIN Users u ON s.email = u.email
+          WHERE u.id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $siswa = $result->fetch_assoc();
+} else {
+    echo "Data siswa tidak ditemukan.";
+    exit();
+}
+$stmt->close();
+$conn->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,7 +99,7 @@
               </ul>
             </li>
             <li><a href="siswa-profil.php">
-                <img src="assets/img/services.jpg" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
+                <img src="<?= htmlspecialchars(string: $siswa['foto_profil']); ?>" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
               </a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -85,8 +114,8 @@
     <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
       <div class="row gy-5 justify-content-between">
         <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
-          <h2><span>Welcome to </span><span class="accent">Cerdas Privat</span></h2>
-          <p>Selamat datang, bersama kami, belajar menjadi lebih seru dan berprestasi</p></br></br>
+        <h2><span>Hello </span> <span class="accent" style="color: #008374;"><?php echo $siswa['nama']; ?></span></h2>
+        <p>Selamat datang, bersama kami, belajar menjadi lebih seru dan berprestasi</p></br></br>
           <div class="d-flex">
             <a href="daftarakun.html" class="btn-get-started ">Daftar</a>
             <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Tonton Vidio</span></a>

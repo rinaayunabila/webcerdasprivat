@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                      // Use default if empty
                 }
                 $siswa_stmt->close();
-                header("Location: siswa-beranda.html");
+                header("Location: siswa-beranda.php");
                 exit();
             } elseif ($_SESSION['role'] === 'Guru') {
                 $guru_query = "SELECT id_guru, foto_profil FROM Guru WHERE email = ?";
@@ -68,5 +68,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     $stmt->close();
     $conn->close();
-}
+} 
 ?>

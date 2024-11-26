@@ -1,5 +1,38 @@
 <?php
 include 'koneksi.php';
+session_start();
+
+// Periksa apakah user sudah login
+if (!isset($_SESSION['user_id'])) {
+    echo "Anda harus login terlebih dahulu.";
+    exit;
+}
+
+// Mengambil data siswa berdasarkan id user yang login
+$user_id = $_SESSION['user_id'];
+$query = "SELECT s.nama, s.sekolah, s.email, s.nama_orang_tua, s.alamat, s.no_hp, s.foto_profil
+          FROM Siswa s
+          JOIN Users u ON s.email = u.email
+          WHERE u.id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$siswa = $result->fetch_assoc(); // Ambil data siswa
+$stmt->close();
+
+// Berikan nilai default jika data siswa tidak ditemukan
+if (!$siswa) {
+    $siswa = [
+        'nama' => 'Tidak Diketahui',
+        'sekolah' => 'Tidak Diketahui',
+        'email' => 'Tidak Diketahui',
+        'nama_orang_tua' => 'Tidak Diketahui',
+        'alamat' => 'Tidak Diketahui',
+        'no_hp' => 'Tidak Diketahui',
+        'foto_profil' => 'default-profile.png' // Gambar default jika tidak ditemukan
+    ];
+}
 
 // Ambil data guru berdasarkan id_guru dari URL
 if (isset($_GET['id_guru'])) {
@@ -11,7 +44,6 @@ if (isset($_GET['id_guru'])) {
     $result = $stmt->get_result();
     $guru = $result->fetch_assoc();
     $stmt->close();
-    $conn->close();
 
     if (!$guru) {
         echo "Data guru tidak ditemukan.";
@@ -21,6 +53,8 @@ if (isset($_GET['id_guru'])) {
     echo "ID guru tidak ditemukan.";
     exit;
 }
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -122,7 +156,7 @@ if (isset($_GET['id_guru'])) {
         </a>
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="siswa-beranda.html" >Beranda<br></a></li>
+            <li><a href="siswa-beranda.php" >Beranda<br></a></li>
             <li><a href="siswa-guru.php"class="active">Guru</a></li>
             <li class="dropdown"><a href="#"><span>Kelas</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
@@ -131,7 +165,7 @@ if (isset($_GET['id_guru'])) {
               </ul>
             </li>
             <li><a href="siswa-profil.php">
-                <img src="assets/img/services.jpg" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
+                <img src="<?= htmlspecialchars(string: $siswa['foto_profil']); ?>" alt="User Profile" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
               </a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -139,7 +173,6 @@ if (isset($_GET['id_guru'])) {
       </div>
     </div>
   </header>
-
 
   <main class="main">
     <div class="container" style="margin-top: 50px;">

@@ -76,59 +76,68 @@
                     </button>
                 </div>
             </div><br>
-              <div class="container">
-                <table id="table" class="table table-striped table-bordered" style="width:100%">
-                  <thead> 
-                    <tr>
+            <div class="container">
+              <table id="table" class="table table-striped table-bordered" style="width:100%">
+                <thead> 
+                  <tr>
                       <th>No</th>
                       <th>Tanggal Pembayaran</th>
                       <th>Nama Siswa</th>
                       <th>Nama Guru</th>
                       <th>Mata Pelajaran</th>
                       <th>Bukti Bayar</th>
-                      <th>Aksi</th> <!-- Kolom Aksi -->
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>12-10-2024</td>
-                      <td>Ayuna</td>
-                      <td>Miss Fitri</td>
-                      <td>Bahasa Inggris</td>
-                      <td></td>
-                      <td>
-                        <div class="d-flex">
-                            <button class="btn btn-warning btn-custom me-2" style="background-color: #ffcc00; color: #ffffff; padding: 5px 10px; font-size: 14px;">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <button class="btn btn-danger btn-custom" style="background-color: #dc3545; color: #ffffff; padding: 5px 10px; font-size: 14px;">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                    </tr>   
-                    <tr>
-                        <td>2</td>
-                        <td>24-9-2024</td>
-                        <td>Nabila</td>
-                        <td>Septania S.T</td>
-                        <td>Informatika</td>
-                        <td></td>
-                        <td>
-                          <div class="d-flex">
-                              <button class="btn btn-warning btn-custom me-2" style="background-color: #ffcc00; color: #ffffff; padding: 5px 10px; font-size: 14px;">
-                                  <i class="bi bi-pencil"></i>
-                              </button>
-                              <button class="btn btn-danger btn-custom" style="background-color: #dc3545; color: #ffffff; padding: 5px 10px; font-size: 14px;">
-                                  <i class="bi bi-trash"></i>
-                              </button>
-                          </div>
-                      </td>
-                      </tr>   
-                    <!-- Tambahkan baris lain sesuai kebutuhan -->
-                  </tbody>
-                </table>
+                      <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <?php
+include 'koneksi.php'; // Menghubungkan ke database
+
+$query = "
+    SELECT 
+        p.id_pembayaran,
+        p.tanggal_pembayaran,
+        p.status_pembayaran,
+        p.foto_bukti,
+        s.nama AS nama_siswa,
+        g.nama AS nama_guru,
+        g.mata_pelajaran
+    FROM 
+        Pembayaran p
+    JOIN 
+        Pendaftaran d ON p.id_pendaftaran = d.id_pendaftaran
+    JOIN 
+        Siswa s ON d.id_siswa = s.id_siswa
+    JOIN 
+        Guru g ON d.id_guru = g.id_guru";
+
+$result = mysqli_query($conn, $query);
+
+if (mysqli_num_rows($result) > 0) {
+    $no = 1;
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo "<tr>";
+        echo "<td>" . $no++ . "</td>";
+        echo "<td>" . $row['tanggal_pembayaran'] . "</td>";
+        echo "<td>" . $row['nama_siswa'] . "</td>";
+        echo "<td>" . $row['nama_guru'] . "</td>";
+        echo "<td>" . $row['mata_pelajaran'] . "</td>";
+        echo "<td><img src='uploads/" . $row['foto_bukti'] . "' alt='Bukti Bayar' width='50'></td>";
+        echo "<td>
+                <div class='d-flex'>
+                    <button class='btn btn-danger btn-custom'>
+                        <i class='bi bi-trash'></i>
+                    </button>
+                </div>
+              </td>";
+        echo "</tr>";
+    }
+} else {
+    echo "<tr><td colspan='7' class='text-center'>Tidak ada data pembayaran yang tersedia</td></tr>";
+}
+
+mysqli_close($conn); // Tutup koneksi
+?>
               </div>
             </div>
           </section>
